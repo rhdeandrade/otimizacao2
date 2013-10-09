@@ -7,7 +7,7 @@
 
 #include "OtimizacaoDespachoHidrotermico.h"
 #include "PlanoProducao.cpp"
-
+#include "CarregadorDados.cpp"
 
 OtimizacaoDespachoHidrotermico::OtimizacaoDespachoHidrotermico() {
 
@@ -29,6 +29,8 @@ void OtimizacaoDespachoHidrotermico::carregarDados(string lote, int serie) {
 	string deficits =  "despachohidrotermico/dados/" + lote + "/planoproducao/DeficitsSaida_" + ss.str() + ".txt";
 	string demanda =  "despachohidrotermico/dados/" + lote + "/planoproducao/Demanda.txt";
 	string intercambios =  "despachohidrotermico/dados/" + lote + "/planoproducao/IntercambiosSaida_" + ss.str() + ".txt";
+
+
 
 }
 

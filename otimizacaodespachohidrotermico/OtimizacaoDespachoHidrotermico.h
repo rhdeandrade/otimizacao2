@@ -12,12 +12,14 @@
 #include "sstream"
 
 #include "PlanoProducao.h"
+#include "CarregadorDados.h"
 
 using namespace std;
 
 class OtimizacaoDespachoHidrotermico {
 public:
 	PlanoProducao planoProducao;
+	CarregadorDados carregadorDados;
 
 	OtimizacaoDespachoHidrotermico();
 	void carregarDados(string lote, int serie);
