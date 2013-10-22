@@ -14,6 +14,7 @@
 #include <string>
 #include "../util/FileHandler.h"
 
+
 using namespace std;
 using namespace boost;
 
@@ -36,7 +37,12 @@ public:
     vector<UsinaTermica> carregar_usinas_termicas();
     vector<GeracaoEnergia> carregar_geracoes_usinas_termicas(int id_usina, string arquivo);
     vector<UsinaHidreletrica> carregarUsinasHidreletricas();
-
+    UsinaHidreletrica carregar_historico_operacao_reservatorio(UsinaHidreletrica usina);
+    void carregar_montantes(vector<UsinaHidreletrica> *usina);
+    vector<Subsistema> carregarSubsistema();
+    vector<Deficit> carregarDeficitsSubsistemas(int idSubsistema);
+    vector<DemandaEnergia> carregarDemandasSubsistema(int idSubsistema);
+    vector<Intercambio> carregarIntercambiosSubsistema(int idSubsistema);
     //vector<GeracaoEnergia> carregar_geracoes_usinas_termicas(int id_usina, string arquivo);
 
     //vector<UsinaHidreletrica> carregar_usinas_hidreletricas();

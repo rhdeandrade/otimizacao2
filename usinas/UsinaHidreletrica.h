@@ -9,6 +9,7 @@
 #define USINAHIDRELETRICA_H_
 
 #include "iostream"
+#include "Reservatorio.h"
 
 using namespace std;
 
@@ -37,6 +38,8 @@ public:
 
 	double potencia_efetiva;
 	double produtividade_media;
+	Reservatorio reservatorio;
+
 	UsinaHidreletrica();
 };
 

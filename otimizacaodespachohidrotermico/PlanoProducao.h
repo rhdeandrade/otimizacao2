@@ -17,6 +17,7 @@ public:
 
 	vector<UsinaTermica> termicas;
 	vector<UsinaHidreletrica> hidreletricas;
+	vector<Subsistema> subsistemas;
 
 };
 

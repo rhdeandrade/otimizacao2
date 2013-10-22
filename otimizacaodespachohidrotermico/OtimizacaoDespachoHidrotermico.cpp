@@ -45,6 +45,7 @@ void OtimizacaoDespachoHidrotermico::carregarDados(string lote, int serie) {
 
 	this->planoProducao.termicas = this->carregadorDados.carregar_usinas_termicas();
 	this->planoProducao.hidreletricas = this->carregadorDados.carregarUsinasHidreletricas();
+	this->planoProducao.subsistemas = this->carregadorDados.carregarSubsistemas();
 
 }
 
