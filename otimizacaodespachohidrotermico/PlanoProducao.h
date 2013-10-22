@@ -15,6 +15,9 @@ class PlanoProducao {
 public:
 	PlanoProducao();
 
+	vector<UsinaTermica> termicas;
+	vector<UsinaHidreletrica> hidreletricas;
+
 };
 
 #endif /* PLANOPRODUCAO_H_ */

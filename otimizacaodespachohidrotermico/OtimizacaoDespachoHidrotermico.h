@@ -10,9 +10,13 @@
 
 #include <iostream>
 #include "sstream"
-
+#include <vector>
+#include "../usinas/UsinaTermica.h"
+#include "../usinas/UsinaHidreletrica.h"
 #include "PlanoProducao.h"
 #include "CarregadorDados.h"
+
+
 
 using namespace std;
 
