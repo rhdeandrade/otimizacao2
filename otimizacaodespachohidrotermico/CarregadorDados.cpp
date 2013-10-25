@@ -4,6 +4,9 @@
  *  Created on: 07/10/2013
  *      Author: raphael
  */
+#ifndef CARREGADORDADOS_CPP_
+#define CARREGADORDADOS_CPP_
+
 
 #include "CarregadorDados.h"
 #include "../util/FileHandler.cpp"
@@ -13,7 +16,7 @@ CarregadorDados::CarregadorDados(string arquivoDadosTermicas, string arquivoGera
 
 	this->arquivoDadosTermicas = arquivoDadosTermicas;
 	this->arquivoDadosHidreletricas = arquivoDadosHidreletricas;
-	this->arquivoGeracoesTermicas = arquivoDadosTermicas;
+	this->arquivoGeracoesTermicas = arquivoGeracoesTermicas;
 	this->arquivoGeracoesHidreletricas = arquivoGeracoesHidreletricas;
 	this->arquivoDadosSubsistemas = arquivoDadosSubsistemas;
 	this->arquivoDeficitsSubsistemas = arquivoDeficitsSubsistemas;
@@ -33,7 +36,6 @@ vector<UsinaTermica> CarregadorDados::carregar_usinas_termicas() {
 
 	vector<string> usinas_termicas = file_handler.open_file(this->arquivoDadosTermicas);
 	int i;
-
 
 	for(i = 0; i < usinas_termicas.size(); i++) {
 		vector<string> tokens;
@@ -57,10 +59,11 @@ vector<UsinaTermica> CarregadorDados::carregar_usinas_termicas() {
 
 		usina_termica.id_subsistema = (int) lexical_cast<double>(tokens.at(6).data());
 
-
 		usina_termica.geracoes = this->carregar_geracoes_usinas_termicas(usina_termica.id_usina, this->arquivoGeracoesTermicas);
 
 		termicas.push_back(usina_termica);
+
+
 
 	}
 
@@ -75,16 +78,17 @@ vector<GeracaoEnergia> CarregadorDados::carregar_geracoes_usinas_termicas(int id
 
 	int i = 0;
 	while(i <= dados_arquivo.size()) {
+
 		vector<string> tokens;
 		string value(dados_arquivo.at(i).data());
 		split(tokens, value, is_any_of(delimitador));
 
 		if(((int) lexical_cast<double>(tokens.at(0).data())) == id_usina) {
 			int periodo = 1;
+
 			while (periodo <= 60) { //Esse é o número de períodos definidos na classe OtimizacaoDespachoHidrotermicoGlobals do pj PHP
 				i++;
 				string value(dados_arquivo.at(i).data());
-
 				split(tokens, value, is_any_of(delimitador));
 				GeracaoEnergia geracao;
 				geracao.periodo = periodo;
@@ -345,3 +349,4 @@ vector<Intercambio> CarregadorDados::carregarIntercambiosSubsistema(int idSubsis
 	return intercambios;
 
 }
+#endif

@@ -1,9 +1,13 @@
+
 /*
  * UsinaTermica.cpp
  *
  *  Created on: 10/10/2013
  *      Author: raphael
  */
+
+#ifndef USINATERMICA_CPP_
+#define USINATERMICA_CPP_
 
 #include "UsinaTermica.h"
 #include "Usina.cpp"
@@ -17,3 +21,4 @@ UsinaTermica::UsinaTermica() {
 
 }
 
+#endif

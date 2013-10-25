@@ -5,6 +5,10 @@
  *      Author: raphael
  */
 
+#ifndef USINAHIDRELETRICA_CPP_
+#define USINAHIDRELETRICA_CPP_
+
+
 #include "UsinaHidreletrica.h"
 
 UsinaHidreletrica::UsinaHidreletrica() {
@@ -12,3 +16,4 @@ UsinaHidreletrica::UsinaHidreletrica() {
 
 }
 
+#endif

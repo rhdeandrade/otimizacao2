@@ -15,6 +15,7 @@ using namespace std;
 int main() {
 	OtimizacaoDespachoHidrotermico odh;
 	odh.carregarDados("lote5", 10);
+	odh.ativarRestricoes(true, true, true, true);
 
 }
 

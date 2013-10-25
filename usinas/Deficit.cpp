@@ -5,6 +5,9 @@
  *      Author: raphael
  */
 
+#ifndef DEFICIT_CPP_
+#define DEFICIT_CPP_
+
 #include "Deficit.h"
 
 Deficit::Deficit() {
@@ -12,3 +15,4 @@ Deficit::Deficit() {
 
 }
 
+#endif

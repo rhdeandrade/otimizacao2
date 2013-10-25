@@ -5,10 +5,23 @@
  *      Author: raphael
  */
 
+
+#ifndef OTIMIZACAODESPACHOHIDROTERMICO_CPP_
+#define OTIMIZACAODESPACHOHIDROTERMICO_CPP_
+
 #include "OtimizacaoDespachoHidrotermico.h"
 #include "../usinas/UsinaTermica.cpp"
+#include "../usinas/UsinaHidreletrica.cpp"
+#include "../usinas/Subsistema.cpp"
+#include "../usinas/DemandaEnergia.cpp"
+#include "../usinas/Deficit.cpp"
+#include "../usinas/Intercambio.cpp"
+#include "../usinas/Reservatorio.cpp"
+#include "../usinas/HistoricoOperacaoReservatorio.cpp"
+#include "../usinas/GeracaoEnergia.cpp"
 #include "PlanoProducao.cpp"
 #include "CarregadorDados.cpp"
+#include "OtimizacaoDespachoHidrotermicoGlobals.cpp"
 
 #include <boost/algorithm/string.hpp>
 #include <boost/lexical_cast.hpp>
@@ -47,5 +60,12 @@ void OtimizacaoDespachoHidrotermico::carregarDados(string lote, int serie) {
 	this->planoProducao.hidreletricas = this->carregadorDados.carregarUsinasHidreletricas();
 	this->planoProducao.subsistemas = this->carregadorDados.carregarSubsistema();
 
+	OtimizacaoDespachoHidrotermicoGlobals::obterInstancia()->hidreletricas = this->planoProducao.hidreletricas;
+
 }
 
+void OtimizacaoDespachoHidrotermico::ativarRestricoes(bool balancoHidrico, bool atendimentoDemanda, bool defluenciaMinima, bool limiteVariaveis) {
+	planoProducao.ativarRestricoes(balancoHidrico, atendimentoDemanda, defluenciaMinima, limiteVariaveis);
+}
+
+#endif

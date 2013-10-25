@@ -8,7 +8,9 @@
 #ifndef PLANOPRODUCAO_H_
 #define PLANOPRODUCAO_H_
 
-
+#include "../usinas/Subsistema.h"
+#include "../usinas/UsinaHidreletrica.h"
+#include "../usinas/UsinaTermica.h"
 
 class PlanoProducao {
 
@@ -18,6 +20,7 @@ public:
 	vector<UsinaTermica> termicas;
 	vector<UsinaHidreletrica> hidreletricas;
 	vector<Subsistema> subsistemas;
+	void ativarRestricoes(bool balancoHidrico, bool atendimentoDemanda, bool defluenciaMinima, bool limiteVariaveis);
 
 };
 

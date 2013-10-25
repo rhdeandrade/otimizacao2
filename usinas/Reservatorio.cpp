@@ -5,6 +5,9 @@
  *      Author: raphael
  */
 
+#ifndef RESERVATORIO_CPP_
+#define RESERVATORIO_CPP_
+
 #include "Reservatorio.h"
 
 Reservatorio::Reservatorio() {
@@ -12,3 +15,4 @@ Reservatorio::Reservatorio() {
 
 }
 
+#endif

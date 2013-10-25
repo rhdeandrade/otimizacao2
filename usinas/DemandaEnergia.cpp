@@ -5,6 +5,9 @@
  *      Author: raphael
  */
 
+#ifndef DEMANDAENERGIA_CPP_
+#define DEMANDAENERGIA_CPP_
+
 #include "DemandaEnergia.h"
 
 DemandaEnergia::DemandaEnergia() {
@@ -12,3 +15,5 @@ DemandaEnergia::DemandaEnergia() {
 
 }
 
+
+#endif

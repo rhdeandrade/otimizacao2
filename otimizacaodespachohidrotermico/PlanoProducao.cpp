@@ -1,3 +1,7 @@
+#ifndef PLANOPRODUCAO_CPP_
+#define PLANOPRODUCAO_CPP_
+
+
 /*
  * PlanoProducao.cpp
  *
@@ -6,6 +10,9 @@
  */
 
 #include "PlanoProducao.h"
+#include "../usinas/Subsistema.cpp"
+#include "../usinas/UsinaHidreletrica.cpp"
+#include "../usinas/UsinaTermica.cpp"
 
 PlanoProducao::PlanoProducao() {
 	// TODO Auto-generated constructor stub
@@ -44,3 +51,8 @@ std::vector<string> FileHandler::open_file(string file_name) {
 }
 
 
+void PlanoProducao::ativarRestricoes(bool balancoHidrico, bool atendimentoDemanda, bool defluenciaMinima, bool limiteVariaveis) {
+
+}
+
+#endif

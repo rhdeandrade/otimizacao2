@@ -5,6 +5,10 @@
  *      Author: raphael
  */
 
+
+#ifndef FILEHANDLER_CPP_
+#define FILEHANDLER_CPP_
+
 #include "FileHandler.h"
 
 FileHandler::FileHandler() {
@@ -12,3 +16,4 @@ FileHandler::FileHandler() {
 
 }
 
+#endif

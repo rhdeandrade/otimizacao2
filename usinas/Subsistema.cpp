@@ -5,6 +5,9 @@
  *      Author: raphael
  */
 
+#ifndef SUBSISTEMA_CPP_
+#define SUBSISTEMA_CPP_
+
 #include "Subsistema.h"
 
 Subsistema::Subsistema() {
@@ -12,3 +15,4 @@ Subsistema::Subsistema() {
 
 }
 
+#endif
