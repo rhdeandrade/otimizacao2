@@ -11,6 +11,10 @@
 #include "../usinas/Subsistema.h"
 #include "../usinas/UsinaHidreletrica.h"
 #include "../usinas/UsinaTermica.h"
+#include "restricoes/RestricaoAtendimentoDemanda.h"
+#include "restricoes/RestricaoDefluenciaMinima.h"
+#include "restricoes/RestricaoBalancoHidrico.h"
+#include "restricoes/RestricaoLimiteVariaveis.h"
 
 class PlanoProducao {
 
@@ -20,6 +24,7 @@ public:
 	vector<UsinaTermica> termicas;
 	vector<UsinaHidreletrica> hidreletricas;
 	vector<Subsistema> subsistemas;
+	vector<void> restricoes;
 	void ativarRestricoes(bool balancoHidrico, bool atendimentoDemanda, bool defluenciaMinima, bool limiteVariaveis);
 
 };

@@ -13,6 +13,10 @@
 #include "../usinas/Subsistema.cpp"
 #include "../usinas/UsinaHidreletrica.cpp"
 #include "../usinas/UsinaTermica.cpp"
+#include "restricoes/RestricaoAtendimentoDemanda.cpp"
+#include "restricoes/RestricaoDefluenciaMinima.cpp"
+#include "restricoes/RestricaoBalancoHidrico.cpp"
+#include "restricoes/RestricaoLimiteVariaveis.cpp"
 
 PlanoProducao::PlanoProducao() {
 	// TODO Auto-generated constructor stub
@@ -52,6 +56,22 @@ std::vector<string> FileHandler::open_file(string file_name) {
 
 
 void PlanoProducao::ativarRestricoes(bool balancoHidrico, bool atendimentoDemanda, bool defluenciaMinima, bool limiteVariaveis) {
+	if (balancoHidrico) {
+		RestricaoBalancoHidrico restricaoBalandoHidrico(this->hidreletricas);
+		this->restricoes.push_back((void)restricaoBalandoHidrico);
+	}
+	if (atendimentoDemanda) {
+		RestricaoAtendimentoDemanda restricaoAtendimentoDemanda(this->subsistemas, this->hidreletricas, this->termicas);
+		this->restricoes.push_back((void)restricaoAtendimentoDemanda);
+	}
+	if (defluenciaMinima) {
+		RestricaoDefluenciaMinima restricaoDefluenciaMinima(this->hidreletricas);
+		this->restricoes.push_back((void)restricaoDefluenciaMinima);
+	}
+	if (limiteVariaveis) {
+		RestricaoLimiteVariaveis restricaoLimiteVariaveis(this->hidreletricas, this->termicas);
+		this->restricoes.push_back((void)restricaoLimiteVariaveis);
+	}
 
 }
 
