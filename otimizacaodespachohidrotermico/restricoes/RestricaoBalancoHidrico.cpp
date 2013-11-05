@@ -11,8 +11,7 @@
 #include "RestricaoBalancoHidrico.h"
 
 RestricaoBalancoHidrico::RestricaoBalancoHidrico(vector<UsinaHidreletrica> hidreletricas) {
-
-
+	this->hidreletricas = hidreletricas;
 }
 
 #endif

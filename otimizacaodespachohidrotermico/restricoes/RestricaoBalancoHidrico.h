@@ -13,6 +13,7 @@ using namespace std;
 
 class RestricaoBalancoHidrico {
 public:
+	vector<UsinaHidreletrica> hidreletricas;
 	RestricaoBalancoHidrico(vector<UsinaHidreletrica> hidreletricas);
 };
 

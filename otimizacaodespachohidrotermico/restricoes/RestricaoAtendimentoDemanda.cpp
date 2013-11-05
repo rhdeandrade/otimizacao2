@@ -12,7 +12,9 @@
 #include "RestricaoAtendimentoDemanda.h"
 
 RestricaoAtendimentoDemanda::RestricaoAtendimentoDemanda(vector<Subsistema> subsistemas, vector<UsinaHidreletrica> hidreletricas, vector<UsinaTermica> termicas) {
-	// TODO Auto-generated constructor stub
+	this->hidreletricas = hidreletricas;
+	this->subsistemas = subsistemas;
+	this->termicas = termicas;
 
 }
 

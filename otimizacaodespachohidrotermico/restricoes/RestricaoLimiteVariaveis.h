@@ -12,6 +12,7 @@ using namespace std;
 
 class RestricaoLimiteVariaveis {
 public:
+	vector<UsinaHidreletrica> hidreletricas;
 	RestricaoLimiteVariaveis(vector<UsinaHidreletrica> hidreletricas, vector<UsinaTermica> termicas);
 };
 

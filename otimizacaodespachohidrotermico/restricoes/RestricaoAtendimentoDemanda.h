@@ -13,6 +13,9 @@ using namespace std;
 
 class RestricaoAtendimentoDemanda {
 public:
+	vector<Subsistema> subsistemas;
+	vector<UsinaHidreletrica> hidreletricas;
+	vector<UsinaTermica> termicas;
 	RestricaoAtendimentoDemanda(vector<Subsistema> subsistemas, vector<UsinaHidreletrica> hidreletricas, vector<UsinaTermica> termicas);
 };
 
