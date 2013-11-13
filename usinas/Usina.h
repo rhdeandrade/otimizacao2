@@ -19,6 +19,7 @@ public:
 	int id_subsistema;
 	vector<GeracaoEnergia> geracoes;
 
+	GeracaoEnergia* obterGeracaoEnergia(int periodo);
 	Usina();
 };
 

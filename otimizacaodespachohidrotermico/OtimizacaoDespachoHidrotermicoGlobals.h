@@ -23,7 +23,8 @@ public:
 
 	static void atualizarPlanoProducao(PlanoProducao planoProducao);
 	static OtimizacaoDespachoHidrotermicoGlobals* obterInstancia();
-	static vector<Usina> obterUsinasDoSubsistema(vector<Usina> usinas, int idUsina);
+	static vector<UsinaTermica> obterUsinasTermicasDoSubsistema(vector<UsinaTermica> usinas, int idUsina);
+	static vector<UsinaHidreletrica> obterUsinasHidreletricasDoSubsistema(vector<UsinaHidreletrica> usinas, int idUsina);
 
 private:
 	OtimizacaoDespachoHidrotermicoGlobals();

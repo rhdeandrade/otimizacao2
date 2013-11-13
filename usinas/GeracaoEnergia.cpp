@@ -10,7 +10,8 @@
 #include "GeracaoEnergia.h"
 
 GeracaoEnergia::GeracaoEnergia() {
-	// TODO Auto-generated constructor stub
+	this->periodo = 0;
+	this->quantidade = 0;
 
 }
 

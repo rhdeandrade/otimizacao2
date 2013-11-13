@@ -13,5 +13,19 @@ Usina::Usina() {
 
 }
 
+GeracaoEnergia* Usina::obterGeracaoEnergia(int periodo) {
+
+
+	for (int i = 0; i < this->geracoes.size(); i++) {
+		GeracaoEnergia g = this->geracoes.at(i);
+		if (g.periodo == periodo)
+			return &g;
+	}
+
+	GeracaoEnergia* geracao = new GeracaoEnergia();
+	geracao->periodo = periodo;
+
+	return geracao;
+}
 
 #endif

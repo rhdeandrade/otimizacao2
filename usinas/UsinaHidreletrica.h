@@ -41,6 +41,8 @@ public:
 	Reservatorio reservatorio;
 
 	UsinaHidreletrica();
+
+	void atualizarBalancoHidrico(int periodo);
 };
 
 #endif /* USINAHIDRELETRICA_H_ */
