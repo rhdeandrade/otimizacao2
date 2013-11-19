@@ -10,9 +10,28 @@
 
 #include "Reservatorio.h"
 
-Reservatorio::Reservatorio() {
-	// TODO Auto-generated constructor stub
+#include <new>
+#include <vector>
 
+#include "HistoricoOperacaoReservatorio.h"
+
+Reservatorio::Reservatorio() {
+
+}
+
+HistoricoOperacaoReservatorio* Reservatorio::obterHistoricoOperacao(int periodo, double volumeInicial) {
+	for (int i = 0; i < this->historicoOperacao.size(); i++) {
+		if(this->historicoOperacao.at(i).periodo == periodo) {
+			return &this->historicoOperacao.at(i);
+		}
+	}
+
+	HistoricoOperacaoReservatorio* historico = new HistoricoOperacaoReservatorio();
+
+	historico->periodo = periodo;
+	historico->volume = volumeInicial;
+
+	return historico;
 }
 
 #endif

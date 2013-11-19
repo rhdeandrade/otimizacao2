@@ -170,4 +170,16 @@ int OtimizacaoDespachoHidrotermicoGlobals::mesCorrente(int periodo) {
   }
 }
 
+UsinaHidreletrica OtimizacaoDespachoHidrotermicoGlobals::obterUsina(int id_usina) {
+  for (int i = 0; i < hidreletricas.size(); ++i) {
+    if (hidreletricas.at(i).id_usina == id_usina) {
+      return hidreletricas.at(i);
+    }
+  }
+
+  UsinaHidreletrica usina;
+  usina.id_usina = -200;
+  return usina;
+}
+
 #endif

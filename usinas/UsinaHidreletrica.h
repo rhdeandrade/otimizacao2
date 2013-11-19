@@ -43,6 +43,9 @@ public:
 	UsinaHidreletrica();
 
 	void atualizarBalancoHidrico(int periodo);
+	double carregar_vazao_montante(int periodo);
+	double carregar_afluencia_montante(int periodo);
+	double calcularGeracaoEnergiaComProdutividadeMedia(int periodo, double volume, double volumeAnterior, double vazaoTurbinada, double vazaoVertida);
 };
 
 #endif /* USINAHIDRELETRICA_H_ */

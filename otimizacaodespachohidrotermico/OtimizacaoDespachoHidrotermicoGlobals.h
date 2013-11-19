@@ -31,6 +31,8 @@ public:
 	static double quantidadeHorasMes(int periodo);
 	static double quantidadeDiasMes(int periodo);
 	static int mesCorrente(int periodo);
+	static UsinaHidreletrica obterUsina(int id_usina);
+
 
 
 private:

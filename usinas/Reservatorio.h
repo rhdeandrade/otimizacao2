@@ -27,6 +27,8 @@ public:
 	 */
 	vector<HistoricoOperacaoReservatorio> historicoOperacao;
 
+	HistoricoOperacaoReservatorio* obterHistoricoOperacao(int periodo, double volumeInicial);
+
 	Reservatorio();
 };
 

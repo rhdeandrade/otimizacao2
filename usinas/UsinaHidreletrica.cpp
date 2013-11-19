@@ -39,8 +39,66 @@ void UsinaHidreletrica::atualizarBalancoHidrico(int periodo) {
 
 	if (abs((int)result) > OtimizacaoDespachoHidrotermicoGlobals::LIMIAR_ERRO_BALANCO_HIDRICO) {
 		volumeAtualizado = OtimizacaoDespachoHidrotermicoGlobals::converterMetroCubicoParaHectometroCubico(volumeAtualizado, periodo);
+
+		if (volumeAtualizado > this->reservatorio.volume_maximo) {
+			historicoOperacao->volume = this->reservatorio.volume_maximo;
+			volumeAtualizado += this->reservatorio.volume_maximo;
+			historicoOperacao->vazao_vertida += OtimizacaoDespachoHidrotermicoGlobals::converterHectometroCubicoParaMetroCubico(volumeAtualizado, periodo);
+
+		} else if (this->reservatorio.volume_minimo > volumeAtualizado) {
+			historicoOperacao->volume = volumeAtualizado;
+
+			historicoOperacao->volume += OtimizacaoDespachoHidrotermicoGlobals::converterMetroCubicoParaHectometroCubico(historicoOperacao->vazao_vertida, periodo);
+
+			historicoOperacao->vazao_vertida = 0;
+
+			if (this->reservatorio.volume_minimo > historicoOperacao->volume) {
+				double volumeMinimoFaltante = this->reservatorio.volume_minimo - historicoOperacao->volume;
+				historicoOperacao->vazao_turbinada -= OtimizacaoDespachoHidrotermicoGlobals::converterHectometroCubicoParaMetroCubico(volumeMinimoFaltante, periodo);
+				historicoOperacao->volume += volumeMinimoFaltante;
+
+				GeracaoEnergia* geracao = this->obterGeracaoEnergia(periodo);
+				geracao->quantidade = this->calcularGeracaoEnergiaComProdutividadeMedia(periodo, 0, 0, 0, 0);
+			}
+		} else {
+			historicoOperacao->volume = volumeAtualizado;
+		}
 	}
 
+}
 
+
+double UsinaHidreletrica::carregar_vazao_montante(int periodo) {
+	double total = 0.0;
+	for (int i = 0; i < this->montantes.size(); ++i) {
+		UsinaHidreletrica montante = OtimizacaoDespachoHidrotermicoGlobals::obterUsina(this->montantes.at(i));
+
+		if (montante.id_usina != -200) { //-200 não encontrou
+			HistoricoOperacaoReservatorio* historico = montante.reservatorio.obterHistoricoOperacao(periodo, 0);
+			total += historico->vazao_turbinada + historico->vazao_vertida;
+		}
+	}
+	return total;
+}
+
+double UsinaHidreletrica::carregar_afluencia_montante(int periodo) {
+  double total = 0.0;
+  for (int i = 0; i < this->montantes.size(); ++i) {
+      UsinaHidreletrica montante = OtimizacaoDespachoHidrotermicoGlobals::obterUsina(montantes.at(i));
+
+      if (montante.id_usina != -200) {//-200 não encontrou
+          HistoricoOperacaoReservatorio* historico = montante.reservatorio.obterHistoricoOperacao(periodo, 0);
+          total += historico->afluencia_natural;
+      }
+    }
+  return total;
+}
+
+
+double UsinaHidreletrica::calcularGeracaoEnergiaComProdutividadeMedia(int periodo, double volume, double volumeAnterior, double vazaoTurbinada, double vazaoVertida) {
+	double resultado;
+
+
+	return resultado;
 }
 #endif
