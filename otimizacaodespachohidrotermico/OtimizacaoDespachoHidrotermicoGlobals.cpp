@@ -32,6 +32,7 @@ OtimizacaoDespachoHidrotermicoGlobals* OtimizacaoDespachoHidrotermicoGlobals::ob
 	return instancia;
 }
 
+
 void OtimizacaoDespachoHidrotermicoGlobals::atualizarPlanoProducao(PlanoProducao planoProducao) {
 	int i;
 	for (i = 1; i <= OtimizacaoDespachoHidrotermicoGlobals::NUM_PERIODO; i++) {
@@ -106,6 +107,67 @@ vector<UsinaHidreletrica> OtimizacaoDespachoHidrotermicoGlobals::obterUsinasHidr
 	}
 
 	return hidreletricas;
+}
+
+double OtimizacaoDespachoHidrotermicoGlobals::converterHectometroCubicoParaMetroCubico(double valor, int periodo) {
+	return valor * (pow(10.0, 6.0) / quantidadeSegundosMes(periodo));
+}
+
+double OtimizacaoDespachoHidrotermicoGlobals::converterMetroCubicoParaHectometroCubico(double valor, int periodo) {
+  return valor / (pow(10.0, 6.0) / quantidadeSegundosMes(periodo));
+}
+
+double OtimizacaoDespachoHidrotermicoGlobals::quantidadeSegundosMes(int periodo) {
+  return 3600 * quantidadeHorasMes(periodo);
+}
+
+double OtimizacaoDespachoHidrotermicoGlobals::quantidadeHorasMes(int periodo) {
+  return 24 * quantidadeDiasMes(periodo);
+}
+
+double OtimizacaoDespachoHidrotermicoGlobals::quantidadeDiasMes(int periodo) {
+  int mes_atual = mesCorrente(periodo);
+
+  if (mes_atual == 1)
+    return 31.0;
+  else if (mes_atual == 2){
+    time_t t = time(0);   // get time now
+    struct tm * now = localtime( & t );
+    if (((now->tm_year + 1900) % 4) == 0)
+      return 29.0;
+    return 28.0;
+  }
+  else if (mes_atual == 3)
+    return 31.0;
+  else if (mes_atual == 4)
+    return 30.0;
+  else if (mes_atual == 5)
+    return 31.0;
+  else if (mes_atual == 6)
+    return 30.0;
+  else if (mes_atual == 7)
+    return 31.0;
+  else if (mes_atual == 8)
+    return 31.0;
+  else if (mes_atual == 9)
+    return 30.0;
+  else if (mes_atual == 10)
+    return 31.0;
+  else if (mes_atual == 11)
+    return 30.0;
+  else
+    return 31.0;
+}
+
+int OtimizacaoDespachoHidrotermicoGlobals::mesCorrente(int periodo) {
+  int mod = periodo % 12;
+
+  if(mod == 0) {
+    return 12;
+  }
+  else {
+    return mod;
+  }
 }
 
 #endif

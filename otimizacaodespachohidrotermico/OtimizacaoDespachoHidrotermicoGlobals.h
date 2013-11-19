@@ -25,6 +25,13 @@ public:
 	static OtimizacaoDespachoHidrotermicoGlobals* obterInstancia();
 	static vector<UsinaTermica> obterUsinasTermicasDoSubsistema(vector<UsinaTermica> usinas, int idUsina);
 	static vector<UsinaHidreletrica> obterUsinasHidreletricasDoSubsistema(vector<UsinaHidreletrica> usinas, int idUsina);
+	static double converterHectometroCubicoParaMetroCubico(double valor, int periodo);
+	static double converterMetroCubicoParaHectometroCubico(double valor, int periodo)
+	static double quantidadeSegundosMes(int periodo);
+	static double quantidadeHorasMes(int periodo);
+	static double quantidadeDiasMes(int periodo);
+	static int mesCorrente(int periodo);
+
 
 private:
 	OtimizacaoDespachoHidrotermicoGlobals();
