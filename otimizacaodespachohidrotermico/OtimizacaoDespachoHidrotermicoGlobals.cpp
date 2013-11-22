@@ -56,29 +56,29 @@ void OtimizacaoDespachoHidrotermicoGlobals::atualizarPlanoProducao(PlanoProducao
 				totalGeracaoHidreletricas += geracao->quantidade;
 			}
 
-			Intercambio intercambio = planoProducao.subsistemas.at(j).obterIntercambioEnergia(i);
-			double totalEnviado = intercambio.totalEnergiaEnviada();
+			Intercambio* intercambio = planoProducao.subsistemas.at(j).obterIntercambioEnergia(i);
+			double totalEnviado = intercambio->totalEnergiaEnviada();
 
 			double totalRecebido = 0;
 			for (int k = 0; k < planoProducao.subsistemas.size(); k++) {
 				intercambio = planoProducao.subsistemas.at(k).obterIntercambioEnergia(i);
-				totalRecebido += intercambio.totalEnergiaRecebida(planoProducao.subsistemas.at(j).id_subsistema);
+				totalRecebido += intercambio->totalEnergiaRecebida(planoProducao.subsistemas.at(j).id_subsistema);
 			}
 
 			totalIntercambio = totalRecebido - totalEnviado;
-			DemandaEnergia demanda = planoProducao.subsistemas.at(j).obterDemandaEnergia(i);
-			Deficit deficit = planoProducao.subsistemas.at(j).obterDeficitSubsistema(i);
+			DemandaEnergia* demanda = planoProducao.subsistemas.at(j).obterDemandaEnergia(i);
+			Deficit* deficit = planoProducao.subsistemas.at(j).obterDeficitSubsistema(i);
 
 			double result = totalGeracaoTermicas + totalGeracaoHidreletricas;
 			result += totalIntercambio;
-			result = result - demanda.quantidade;
+			result = result - demanda->quantidade;
 
 			if (deficit)
 				if (result > 0) {
-					deficit.deficit = result;
+					deficit->deficit = result;
 				}
 				else {
-					deficit.deficit = 0;
+					deficit->deficit = 0;
 				}
 		}
 	}
@@ -114,72 +114,73 @@ double OtimizacaoDespachoHidrotermicoGlobals::converterHectometroCubicoParaMetro
 }
 
 double OtimizacaoDespachoHidrotermicoGlobals::converterMetroCubicoParaHectometroCubico(double valor, int periodo) {
-  return valor / (pow(10.0, 6.0) / quantidadeSegundosMes(periodo));
+	return valor / (pow(10.0, 6.0) / quantidadeSegundosMes(periodo));
 }
 
 double OtimizacaoDespachoHidrotermicoGlobals::quantidadeSegundosMes(int periodo) {
-  return 3600 * quantidadeHorasMes(periodo);
+	return 3600 * quantidadeHorasMes(periodo);
 }
 
 double OtimizacaoDespachoHidrotermicoGlobals::quantidadeHorasMes(int periodo) {
-  return 24 * quantidadeDiasMes(periodo);
+	return 24 * quantidadeDiasMes(periodo);
 }
 
 double OtimizacaoDespachoHidrotermicoGlobals::quantidadeDiasMes(int periodo) {
-  int mes_atual = mesCorrente(periodo);
+	int mes_atual = mesCorrente(periodo);
 
-  if (mes_atual == 1)
-    return 31.0;
-  else if (mes_atual == 2){
-    time_t t = time(0);   // get time now
-    struct tm * now = localtime( & t );
-    if (((now->tm_year + 1900) % 4) == 0)
-      return 29.0;
-    return 28.0;
-  }
-  else if (mes_atual == 3)
-    return 31.0;
-  else if (mes_atual == 4)
-    return 30.0;
-  else if (mes_atual == 5)
-    return 31.0;
-  else if (mes_atual == 6)
-    return 30.0;
-  else if (mes_atual == 7)
-    return 31.0;
-  else if (mes_atual == 8)
-    return 31.0;
-  else if (mes_atual == 9)
-    return 30.0;
-  else if (mes_atual == 10)
-    return 31.0;
-  else if (mes_atual == 11)
-    return 30.0;
-  else
-    return 31.0;
+	if (mes_atual == 1)
+		return 31.0;
+	else if (mes_atual == 2){
+		time_t t = time(0);   // get time now
+		struct tm * now = localtime( & t );
+		if (((now->tm_year + 1900) % 4) == 0)
+			return 29.0;
+		return 28.0;
+	}
+	else if (mes_atual == 3)
+		return 31.0;
+	else if (mes_atual == 4)
+		return 30.0;
+	else if (mes_atual == 5)
+		return 31.0;
+	else if (mes_atual == 6)
+		return 30.0;
+	else if (mes_atual == 7)
+		return 31.0;
+	else if (mes_atual == 8)
+		return 31.0;
+	else if (mes_atual == 9)
+		return 30.0;
+	else if (mes_atual == 10)
+		return 31.0;
+	else if (mes_atual == 11)
+		return 30.0;
+	else
+		return 31.0;
 }
 
 int OtimizacaoDespachoHidrotermicoGlobals::mesCorrente(int periodo) {
-  int mod = periodo % 12;
+	int mod = periodo % 12;
 
-  if(mod == 0) {
-    return 12;
-  }
-  else {
-    return mod;
-  }
+	if(mod == 0) {
+		return 12;
+	}
+	else {
+		return mod;
+	}
 }
 
 UsinaHidreletrica OtimizacaoDespachoHidrotermicoGlobals::obterUsina(int id_usina) {
-  for (int i = 0; i < hidreletricas.size(); ++i) {
-    if (hidreletricas.at(i).id_usina == id_usina) {
-      return hidreletricas.at(i);
-    }
-  }
+	vector<UsinaHidreletrica> hidreletricas = OtimizacaoDespachoHidrotermicoGlobals::instancia->hidreletricas;
+	for (int i = 0; i < hidreletricas.size(); ++i) {
+		if (hidreletricas.at(i).id_usina == id_usina) {
+			return hidreletricas.at(i);
+		}
+	}
 
-  UsinaHidreletrica usina;
-  usina.id_usina = -200;
-  return usina;
+	UsinaHidreletrica usina;
+	usina.id_usina = -200;
+	return usina;
 }
 
 #endif

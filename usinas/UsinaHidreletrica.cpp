@@ -97,8 +97,57 @@ double UsinaHidreletrica::carregar_afluencia_montante(int periodo) {
 
 double UsinaHidreletrica::calcularGeracaoEnergiaComProdutividadeMedia(int periodo, double volume, double volumeAnterior, double vazaoTurbinada, double vazaoVertida) {
 	double resultado;
+	if (periodo > 0) {
+	    HistoricoOperacaoReservatorio* historico = this->reservatorio.obterHistoricoOperacao(periodo, this->reservatorio.volume_maximo);
+	    HistoricoOperacaoReservatorio* historicoAnterior = this->reservatorio.obterHistoricoOperacao(periodo - 1, this->reservatorio.volume_maximo);
 
+	    volume = historico->volume;
+	    volumeAnterior = historicoAnterior->volume;
+	    vazaoTurbinada = historico->vazao_turbinada;
+	    vazaoVertida = historico->vazao_vertida;
+	}
+
+	double phi = this->calcularPolinomioMontante((volume + volumeAnterior)/2);
+	double theta = this->calcularPolinomioJusante(vazaoVertida + vazaoTurbinada);
+
+	double alturaQuedaBruta = phi - theta;
+	double alturaQuedaLiquida;
+
+	if (this->tipo_perda_hidraulica == 1) {
+		alturaQuedaLiquida = alturaQuedaBruta - (((this->valor_perda_hidraulica / 100) * alturaQuedaBruta));
+	} else if (this->tipo_perda_hidraulica == 2) {
+		alturaQuedaLiquida = alturaQuedaBruta - this->valor_perda_hidraulica;
+	} else if (this->tipo_perda_hidraulica == 3) {
+		alturaQuedaLiquida = alturaQuedaBruta - ((this->valor_perda_hidraulica * pow(vazaoTurbinada, 2)));
+	}
+
+	resultado = this->produtividade_media * alturaQuedaLiquida;
+	resultado *= vazaoTurbinada;
 
 	return resultado;
 }
+
+double UsinaHidreletrica::calcularPolinomioMontante(double vazaoTotal) {
+
+	  double A4 = this->coeficiente_cota_montante_a4 * pow(vazaoTotal, 4);
+	  double A3 = this->coeficiente_cota_montante_a3 * pow(vazaoTotal, 3);
+	  double A2 = this->coeficiente_cota_montante_a2 * pow(vazaoTotal, 2);
+	  double A1 = this->coeficiente_cota_montante_a1 * vazaoTotal;
+
+	  double resultado = this->coeficiente_cota_montante_a0 + A1 + A2 + A3 + A4;
+
+	  return resultado;
+}
+
+double UsinaHidreletrica::calcularPolinomioJusante(double vazaoTotal) {
+	double A4 = this->coeficiente_cota_jusante_a4 * pow(vazaoTotal, 4);
+	  double A3 = this->coeficiente_cota_jusante_a3 * pow(vazaoTotal, 3);
+	  double A2 = this->coeficiente_cota_jusante_a2 * pow(vazaoTotal, 2);
+	  double A1 = this->coeficiente_cota_jusante_a1 * vazaoTotal;
+
+	  double resultado = this->coeficiente_cota_jusante_a0 + A1 + A2 + A3 + A4;
+
+	  return resultado;
+}
+
 #endif

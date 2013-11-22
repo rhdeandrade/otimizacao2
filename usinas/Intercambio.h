@@ -18,6 +18,8 @@ public:
 	double quantidade_subsistema_5;
 
 	Intercambio();
+	double totalEnergiaEnviada();
+	double totalEnergiaRecebida(int id_subsistema);
 };
 
 #endif /* INTERCAMBIO_H_ */

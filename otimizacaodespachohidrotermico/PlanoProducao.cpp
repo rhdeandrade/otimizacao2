@@ -13,6 +13,7 @@
 #include "../usinas/Subsistema.cpp"
 #include "../usinas/UsinaHidreletrica.cpp"
 #include "../usinas/UsinaTermica.cpp"
+#include "restricoes/Restricao.cpp"
 #include "restricoes/RestricaoAtendimentoDemanda.cpp"
 #include "restricoes/RestricaoDefluenciaMinima.cpp"
 #include "restricoes/RestricaoBalancoHidrico.cpp"
@@ -57,20 +58,20 @@ std::vector<string> FileHandler::open_file(string file_name) {
 
 void PlanoProducao::ativarRestricoes(bool balancoHidrico, bool atendimentoDemanda, bool defluenciaMinima, bool limiteVariaveis) {
 	if (balancoHidrico) {
-		RestricaoBalancoHidrico restricaoBalandoHidrico(this->hidreletricas);
-		this->restricoes.push_back((void)restricaoBalandoHidrico);
+		RestricaoBalancoHidrico* restricaoBalandoHidrico = new RestricaoBalancoHidrico(this->hidreletricas);
+		this->restricoes.balanco_hidrico = restricaoBalandoHidrico;
 	}
 	if (atendimentoDemanda) {
-		RestricaoAtendimentoDemanda restricaoAtendimentoDemanda(this->subsistemas, this->hidreletricas, this->termicas);
-		this->restricoes.push_back((void)restricaoAtendimentoDemanda);
+		RestricaoAtendimentoDemanda* restricaoAtendimentoDemanda = new RestricaoAtendimentoDemanda(this->subsistemas, this->hidreletricas, this->termicas);
+		this->restricoes.atendimento_demanda = restricaoAtendimentoDemanda;
 	}
 	if (defluenciaMinima) {
-		RestricaoDefluenciaMinima restricaoDefluenciaMinima(this->hidreletricas);
-		this->restricoes.push_back((void)restricaoDefluenciaMinima);
+		RestricaoDefluenciaMinima* restricaoDefluenciaMinima = new RestricaoDefluenciaMinima(this->hidreletricas);
+		this->restricoes.defluencia_minima = restricaoDefluenciaMinima;
 	}
 	if (limiteVariaveis) {
-		RestricaoLimiteVariaveis restricaoLimiteVariaveis(this->hidreletricas, this->termicas);
-		this->restricoes.push_back((void)restricaoLimiteVariaveis);
+		RestricaoLimiteVariaveis* restricaoLimiteVariaveis = new RestricaoLimiteVariaveis(this->hidreletricas, this->termicas);
+		this->restricoes.limite_variaveis = restricaoLimiteVariaveis;
 	}
 
 }

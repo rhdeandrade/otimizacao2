@@ -30,6 +30,11 @@ public:
     vector<Deficit> deficits;
     vector<Intercambio> intercambios;
 
+
+    Intercambio* obterIntercambioEnergia(int periodo);
+    DemandaEnergia* obterDemandaEnergia(int periodo);
+    Deficit* obterDeficitSubsistema(int periodo);
+
 	Subsistema();
 };
 

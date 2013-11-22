@@ -46,6 +46,8 @@ public:
 	double carregar_vazao_montante(int periodo);
 	double carregar_afluencia_montante(int periodo);
 	double calcularGeracaoEnergiaComProdutividadeMedia(int periodo, double volume, double volumeAnterior, double vazaoTurbinada, double vazaoVertida);
+	double calcularPolinomioMontante(double vazaoTotal);
+	double calcularPolinomioJusante(double vazaoTotal);
 };
 
 #endif /* USINAHIDRELETRICA_H_ */
