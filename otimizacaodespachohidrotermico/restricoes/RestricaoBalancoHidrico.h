@@ -15,6 +15,8 @@ class RestricaoBalancoHidrico {
 public:
 	vector<UsinaHidreletrica> hidreletricas;
 	RestricaoBalancoHidrico(vector<UsinaHidreletrica> hidreletricas);
+	void checkConstraint();
+	int errorThreshold();
 };
 
 #endif /* RESTRICAOBALANCOHIDRICO_H_ */

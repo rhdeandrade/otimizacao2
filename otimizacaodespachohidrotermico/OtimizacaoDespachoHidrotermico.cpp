@@ -68,4 +68,18 @@ void OtimizacaoDespachoHidrotermico::ativarRestricoes(bool balancoHidrico, bool 
 	planoProducao.ativarRestricoes(balancoHidrico, atendimentoDemanda, defluenciaMinima, limiteVariaveis);
 }
 
+void OtimizacaoDespachoHidrotermico::validarPlanoProducao() {
+	this->planoProducao.restricoes.atendimento_demanda->checkConstraint();
+	//this->planoProducao.restricoes.atendimento_demanda->printMessageConstraintBroken();
+
+	this->planoProducao.restricoes.balanco_hidrico->checkConstraint();
+	//this->planoProducao.restricoes.balanco_hidrico->printMessageConstraintBroken();
+
+	this->planoProducao.restricoes.defluencia_minima->checkConstraint();
+	//this->planoProducao.restricoes.defluencia_minima->printMessageConstraintBroken();
+
+	this->planoProducao.restricoes.limite_variaveis->checkConstraint();
+	//this->planoProducao.restricoes.limite_variaveis->printMessageConstraintBroken();
+}
+
 #endif

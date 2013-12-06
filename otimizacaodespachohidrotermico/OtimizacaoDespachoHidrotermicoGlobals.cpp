@@ -48,6 +48,8 @@ void OtimizacaoDespachoHidrotermicoGlobals::atualizarPlanoProducao(PlanoProducao
 				totalGeracaoTermicas += geracao->quantidade;
 			}
 
+
+
 			vector<UsinaHidreletrica> hidreletricas = OtimizacaoDespachoHidrotermicoGlobals::obterUsinasHidreletricasDoSubsistema(planoProducao.hidreletricas, planoProducao.subsistemas.at(j).id_subsistema);
 
 			for (int k = 0; k < hidreletricas.size(); k++) {
@@ -71,7 +73,11 @@ void OtimizacaoDespachoHidrotermicoGlobals::atualizarPlanoProducao(PlanoProducao
 
 			double result = totalGeracaoTermicas + totalGeracaoHidreletricas;
 			result += totalIntercambio;
-			result = result - demanda->quantidade;
+
+
+			if (demanda) {
+				result = result - demanda->quantidade;
+			}
 
 			if (deficit)
 				if (result > 0) {

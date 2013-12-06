@@ -11,8 +11,37 @@
 #include "RestricaoDefluenciaMinima.h"
 
 RestricaoDefluenciaMinima::RestricaoDefluenciaMinima(vector<UsinaHidreletrica> hidreletricas) {
-	// TODO Auto-generated constructor stub
+	this->hidreletricas = hidreletricas;
 
 }
 
+void RestricaoDefluenciaMinima::checkConstraint() {
+	bool isConstraintOK = true;
+	double result = 0;
+
+	for(int i = 1; i <= OtimizacaoDespachoHidrotermicoGlobals::NUM_PERIODO; i++) {
+		for(int j = 0; j < this->hidreletricas; j++) {
+			UsinaHidreletrica hidreletrica = this->hidreletricas.at(j);
+
+			HistoricoOperacaoReservatorio* historico = hidreletrica.reservatorio.obterHistoricoOperacao(i, 0);
+
+			result = (hidreletrica.reservatorio.defluencia_minima - (historico->vazao_vertida + historico->vazao_turbinada));
+
+			if (result > this->errorThreshold()) {
+				isConstraintOK = false;
+			}
+		}
+	}
+
+	if (isConstraintOK) {
+		cout << "Não consta violação de Defluencia Mínina\n";
+	}
+	else {
+		cout << "Restrição de Defluencia Mínima foi quebrada\n";
+	}
+}
+
+int RestricaoDefluenciaMinima::errorThreshold() {
+	return 1;
+}
 #endif

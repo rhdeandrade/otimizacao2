@@ -17,6 +17,8 @@ public:
 	vector<UsinaHidreletrica> hidreletricas;
 	vector<UsinaTermica> termicas;
 	RestricaoAtendimentoDemanda(vector<Subsistema> subsistemas, vector<UsinaHidreletrica> hidreletricas, vector<UsinaTermica> termicas);
+	void checkConstraint();
+	int errorThreshold();
 };
 
 #endif /* RESTRICAOATENDIMENTODEMANDA_H_ */
