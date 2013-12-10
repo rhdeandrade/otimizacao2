@@ -8,6 +8,8 @@
 #ifndef OTIMIZACAODESPACHOHIDROTERMICOGLOBALS_H_
 #define OTIMIZACAODESPACHOHIDROTERMICOGLOBALS_H_
 
+#include "PlanoProducao.h"
+
 #include <iostream>
 
 using namespace std;

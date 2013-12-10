@@ -8,6 +8,7 @@
 #ifndef RESTRICAODEFLUENCIAMINIMA_H_
 #define RESTRICAODEFLUENCIAMINIMA_H_
 
+
 using namespace std;
 
 class RestricaoDefluenciaMinima {

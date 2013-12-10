@@ -10,6 +10,8 @@
 
 #include "OtimizacaoDespachoHidrotermicoGlobals.h"
 
+#include "PlanoProducao.cpp"
+
 OtimizacaoDespachoHidrotermicoGlobals* OtimizacaoDespachoHidrotermicoGlobals::instancia;
 
 OtimizacaoDespachoHidrotermicoGlobals::OtimizacaoDespachoHidrotermicoGlobals() {

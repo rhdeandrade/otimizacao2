@@ -59,14 +59,16 @@ void RestricaoAtendimentoDemanda::checkConstraint() {
 				totalRecebido += intercambio->totalEnergiaRecebida(i);
 			}
 
+
+
 			totalIntercambio = totalRecebido - totalEnviado;
 
 			DemandaEnergia* demanda = subsistema.obterDemandaEnergia(i);
 			Deficit* deficit = subsistema.obterDeficitSubsistema(i);
 
 			result = totalGeracaoHidreletricas + totalGeracaoTermicas + totalIntercambio;
-			result -= demanda->quantidade;
 
+			result -= demanda->quantidade;
 			result += deficit->deficit;
 
 			if ( (abs(result) > this->errorThreshold()) && result < 0) {
