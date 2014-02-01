@@ -9,6 +9,7 @@
 #define OTIMIZACAODESPACHOHIDROTERMICOGLOBALS_H_
 
 #include "PlanoProducao.h"
+#include "../util/Report.h"
 
 #include <iostream>
 
@@ -23,7 +24,7 @@ public:
 	const static int LIMIAR_ERRO_BALANCO_HIDRICO = 16;
 	const static int NUM_PERIODO = 60;
 
-	static void atualizarPlanoProducao(PlanoProducao planoProducao);
+	static void atualizarPlanoProducao(PlanoProducao* planoProducao);
 	static OtimizacaoDespachoHidrotermicoGlobals* obterInstancia();
 	static vector<UsinaTermica> obterUsinasTermicasDoSubsistema(vector<UsinaTermica> usinas, int idUsina);
 	static vector<UsinaHidreletrica> obterUsinasHidreletricasDoSubsistema(vector<UsinaHidreletrica> usinas, int idUsina);

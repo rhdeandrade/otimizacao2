@@ -9,12 +9,16 @@
 
 #include "Usina.h"
 
+#include <new>
+#include <vector>
+
+#include "GeracaoEnergia.h"
+
 Usina::Usina() {
 
 }
 
 GeracaoEnergia* Usina::obterGeracaoEnergia(int periodo) {
-
 
 	for (int i = 0; i < this->geracoes.size(); i++) {
 		GeracaoEnergia* g = &this->geracoes.at(i);
@@ -26,6 +30,16 @@ GeracaoEnergia* Usina::obterGeracaoEnergia(int periodo) {
 	geracao->periodo = periodo;
 
 	return geracao;
+}
+
+double Usina::totalEnergiaGerada() {
+	double total = 0;
+
+	for (int i = 0; i < this->geracoes.size(); i++) {
+		total += this->geracoes.at(i).quantidade;
+	}
+
+	return total;
 }
 
 #endif

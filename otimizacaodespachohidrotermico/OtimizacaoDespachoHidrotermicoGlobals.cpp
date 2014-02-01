@@ -11,6 +11,8 @@
 #include "OtimizacaoDespachoHidrotermicoGlobals.h"
 
 #include "PlanoProducao.cpp"
+#include "../util/Report.cpp"
+
 
 OtimizacaoDespachoHidrotermicoGlobals* OtimizacaoDespachoHidrotermicoGlobals::instancia;
 
@@ -35,15 +37,15 @@ OtimizacaoDespachoHidrotermicoGlobals* OtimizacaoDespachoHidrotermicoGlobals::ob
 }
 
 
-void OtimizacaoDespachoHidrotermicoGlobals::atualizarPlanoProducao(PlanoProducao planoProducao) {
+void OtimizacaoDespachoHidrotermicoGlobals::atualizarPlanoProducao(PlanoProducao* planoProducao) {
 	int i;
 	for (i = 1; i <= OtimizacaoDespachoHidrotermicoGlobals::NUM_PERIODO; i++) {
-		for (int j = 0; j < planoProducao.subsistemas.size(); j++) {
+		for (int j = 0; j < planoProducao->subsistemas.size(); j++) {
 			double totalGeracaoHidreletricas = 0;
 			double totalGeracaoTermicas = 0;
 			double totalIntercambio = 0;
 
-			vector<UsinaTermica> termicas = OtimizacaoDespachoHidrotermicoGlobals::obterUsinasTermicasDoSubsistema(planoProducao.termicas, planoProducao.subsistemas.at(j).id_subsistema);
+			vector<UsinaTermica> termicas = OtimizacaoDespachoHidrotermicoGlobals::obterUsinasTermicasDoSubsistema(planoProducao->termicas, planoProducao->subsistemas.at(j).id_subsistema);
 
 			for (int k = 0; k < termicas.size(); k++) {
 				GeracaoEnergia* geracao = termicas.at(k).obterGeracaoEnergia(i);
@@ -52,7 +54,7 @@ void OtimizacaoDespachoHidrotermicoGlobals::atualizarPlanoProducao(PlanoProducao
 
 
 
-			vector<UsinaHidreletrica> hidreletricas = OtimizacaoDespachoHidrotermicoGlobals::obterUsinasHidreletricasDoSubsistema(planoProducao.hidreletricas, planoProducao.subsistemas.at(j).id_subsistema);
+			vector<UsinaHidreletrica> hidreletricas = OtimizacaoDespachoHidrotermicoGlobals::obterUsinasHidreletricasDoSubsistema(planoProducao->hidreletricas, planoProducao->subsistemas.at(j).id_subsistema);
 
 			for (int k = 0; k < hidreletricas.size(); k++) {
 				hidreletricas.at(k).atualizarBalancoHidrico(i);
@@ -60,18 +62,18 @@ void OtimizacaoDespachoHidrotermicoGlobals::atualizarPlanoProducao(PlanoProducao
 				totalGeracaoHidreletricas += geracao->quantidade;
 			}
 
-			Intercambio* intercambio = planoProducao.subsistemas.at(j).obterIntercambioEnergia(i);
+			Intercambio* intercambio = planoProducao->subsistemas.at(j).obterIntercambioEnergia(i);
 			double totalEnviado = intercambio->totalEnergiaEnviada();
 
 			double totalRecebido = 0;
-			for (int k = 0; k < planoProducao.subsistemas.size(); k++) {
-				intercambio = planoProducao.subsistemas.at(k).obterIntercambioEnergia(i);
-				totalRecebido += intercambio->totalEnergiaRecebida(planoProducao.subsistemas.at(j).id_subsistema);
+			for (int k = 0; k < planoProducao->subsistemas.size(); k++) {
+				intercambio = planoProducao->subsistemas.at(k).obterIntercambioEnergia(i);
+				totalRecebido += intercambio->totalEnergiaRecebida(planoProducao->subsistemas.at(j).id_subsistema);
 			}
 
 			totalIntercambio = totalRecebido - totalEnviado;
-			DemandaEnergia* demanda = planoProducao.subsistemas.at(j).obterDemandaEnergia(i);
-			Deficit* deficit = planoProducao.subsistemas.at(j).obterDeficitSubsistema(i);
+			DemandaEnergia* demanda = planoProducao->subsistemas.at(j).obterDemandaEnergia(i);
+			Deficit* deficit = planoProducao->subsistemas.at(j).obterDeficitSubsistema(i);
 
 			double result = totalGeracaoTermicas + totalGeracaoHidreletricas;
 			result += totalIntercambio;
@@ -90,6 +92,9 @@ void OtimizacaoDespachoHidrotermicoGlobals::atualizarPlanoProducao(PlanoProducao
 				}
 		}
 	}
+
+	cout << "Impressão dentro do atualizar plano produçao";
+	Report::imprimir_resultados(*planoProducao);
 }
 
 

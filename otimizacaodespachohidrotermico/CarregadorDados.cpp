@@ -46,21 +46,13 @@ vector<UsinaTermica> CarregadorDados::carregar_usinas_termicas() {
 		split(tokens, value, is_any_of(delimitador));
 
 		usina_termica.id_usina = (int) lexical_cast<double>(tokens.at(0).data());
-
 		usina_termica.quantidade_geracao_max = lexical_cast<double>(tokens.at(1).data());
-
 		usina_termica.quantidade_geracao_min = lexical_cast<double>(tokens.at(2).data());
-
 		usina_termica.coeficiente_custo_termica_a0 = lexical_cast<double>(tokens.at(3).data());
-
 		usina_termica.coeficiente_custo_termica_a1 = lexical_cast<double>(tokens.at(4).data());
-
 		usina_termica.coeficiente_custo_termica_a2 = lexical_cast<double>(tokens.at(5).data());
-
 		usina_termica.id_subsistema = (int) lexical_cast<double>(tokens.at(6).data());
-
 		usina_termica.geracoes = this->carregar_geracoes_usinas_termicas(usina_termica.id_usina, this->arquivoGeracoesTermicas);
-
 		termicas.push_back(usina_termica);
 
 
@@ -190,8 +182,10 @@ UsinaHidreletrica CarregadorDados::carregar_historico_operacao_reservatorio(Usin
 				historico.afluencia_natural = lexical_cast<double>(tokens.at(4).data());
 				usina.reservatorio.historicoOperacao.push_back(historico);
 
+
 				GeracaoEnergia geracao;
 				geracao.periodo = periodo;
+
 				geracao.quantidade = lexical_cast<double>(tokens.at(3).data());
 				usina.geracoes.push_back(geracao);
 

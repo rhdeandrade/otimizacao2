@@ -20,6 +20,7 @@ public:
 	vector<GeracaoEnergia> geracoes;
 
 	GeracaoEnergia* obterGeracaoEnergia(int periodo);
+	double totalEnergiaGerada();
 	Usina();
 };
 

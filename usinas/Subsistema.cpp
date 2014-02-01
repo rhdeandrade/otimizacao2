@@ -10,8 +10,15 @@
 
 #include "Subsistema.h"
 
+#include <new>
+#include <vector>
+
+#include "Deficit.h"
+#include "DemandaEnergia.h"
+#include "Intercambio.h"
+
 Subsistema::Subsistema() {
-	// TODO Auto-generated constructor stub
+
 
 }
 

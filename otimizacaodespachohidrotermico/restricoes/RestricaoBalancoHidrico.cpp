@@ -18,7 +18,7 @@ void RestricaoBalancoHidrico::checkConstraint() {
 	bool isConstraintOK = true;
 	double result = 0;
 	for(int i = 1; i <= OtimizacaoDespachoHidrotermicoGlobals::NUM_PERIODO; i++) {
-		for(int j = 0; this->hidreletricas.size(); j++) {
+		for(int j = 0; j < this->hidreletricas.size(); j++) {
 			UsinaHidreletrica hidreletrica = this->hidreletricas.at(j);
 
 			HistoricoOperacaoReservatorio* historico = hidreletrica.reservatorio.obterHistoricoOperacao(i, 0);

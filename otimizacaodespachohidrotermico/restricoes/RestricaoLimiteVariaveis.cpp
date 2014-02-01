@@ -34,7 +34,7 @@ void RestricaoLimiteVariaveis::checkConstraint() {
 			}
 		}
 
-		for (int j = 0; this->termicas.size(); j++) {
+		for (int j = 0; j < this->termicas.size(); j++) {
 			UsinaTermica termica = this->termicas.at(j);
 
 			if (this->capacidadeGeracaoEnergiaTermica(termica, i)) {
@@ -45,10 +45,10 @@ void RestricaoLimiteVariaveis::checkConstraint() {
 	}
 
 	if (isConstraintOK) {
-		cout << "Não consta violação de Defluencia Mínina\n";
+		cout << "Não consta violações de Limites de Variáveis\n";
 	}
 	else {
-		cout << "Restrição de Defluencia Mínima foi quebrada\n";
+		cout << "Restrição de Limites de Variáveis foi quebrada\n";
 	}
 }
 
