@@ -32,8 +32,8 @@ GeracaoEnergia* Usina::obterGeracaoEnergia(int periodo) {
 	return geracao;
 }
 
-double Usina::totalEnergiaGerada() {
-	double total = 0;
+long double Usina::totalEnergiaGerada() {
+	long double total = 0;
 
 	for (int i = 0; i < this->geracoes.size(); i++) {
 		total += this->geracoes.at(i).quantidade;

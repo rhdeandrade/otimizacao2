@@ -18,13 +18,13 @@ using namespace std;
 class Subsistema {
 public:
     int id_subsistema;
-    double coeficiente_custo_deficit_a2;
-    double coeficiente_custo_deficit_a1;
-    double coeficiente_custo_deficit_a0;
+    long double coeficiente_custo_deficit_a2;
+    long double coeficiente_custo_deficit_a1;
+    long double coeficiente_custo_deficit_a0;
 
-    double intercambio_minimo;
-    double intercambio_maximo;
-    double demanda;
+    long double intercambio_minimo;
+    long double intercambio_maximo;
+    long double demanda;
 
     vector<DemandaEnergia> demandas;
     vector<Deficit> deficits;

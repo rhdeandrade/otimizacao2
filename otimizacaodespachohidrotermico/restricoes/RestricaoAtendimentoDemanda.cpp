@@ -20,15 +20,15 @@ RestricaoAtendimentoDemanda::RestricaoAtendimentoDemanda(vector<Subsistema> subs
 
 void RestricaoAtendimentoDemanda::checkConstraint() {
 	bool isContraintOk = true;
-	double result = 0;
+	long double result = 0;
 
 	for(int i = 1; i <= OtimizacaoDespachoHidrotermicoGlobals::NUM_PERIODO; i++) {
 		for(int j = 0; j < this->subsistemas.size(); j++) {
 			Subsistema subsistema = this->subsistemas.at(j);
 
-			double totalGeracaoHidreletricas = 0;
-			double totalGeracaoTermicas = 0;
-			double totalIntercambio = 0;
+			long double totalGeracaoHidreletricas = 0;
+			long double totalGeracaoTermicas = 0;
+			long double totalIntercambio = 0;
 
 			vector<UsinaTermica> termicas = OtimizacaoDespachoHidrotermicoGlobals::obterUsinasTermicasDoSubsistema(this->termicas, subsistema.id_subsistema);
 
@@ -49,8 +49,8 @@ void RestricaoAtendimentoDemanda::checkConstraint() {
 			}
 
 			Intercambio* intercambio = subsistema.obterIntercambioEnergia(i);
-			double totalEnviado = intercambio->totalEnergiaEnviada();
-			double totalRecebido = 0;
+			long double totalEnviado = intercambio->totalEnergiaEnviada();
+			long double totalRecebido = 0;
 
 			for(int k = 0; k < this->subsistemas.size(); k++) {
 				Subsistema ss = this->subsistemas.at(k);

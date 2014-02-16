@@ -11,7 +11,7 @@
 class GeracaoEnergia {
 public:
 	int periodo;
-	float quantidade;
+	long double quantidade;
 	GeracaoEnergia();
 };
 

@@ -45,13 +45,13 @@ vector<UsinaTermica> CarregadorDados::carregar_usinas_termicas() {
 
 		split(tokens, value, is_any_of(delimitador));
 
-		usina_termica.id_usina = (int) lexical_cast<double>(tokens.at(0).data());
-		usina_termica.quantidade_geracao_max = lexical_cast<double>(tokens.at(1).data());
-		usina_termica.quantidade_geracao_min = lexical_cast<double>(tokens.at(2).data());
-		usina_termica.coeficiente_custo_termica_a0 = lexical_cast<double>(tokens.at(3).data());
-		usina_termica.coeficiente_custo_termica_a1 = lexical_cast<double>(tokens.at(4).data());
-		usina_termica.coeficiente_custo_termica_a2 = lexical_cast<double>(tokens.at(5).data());
-		usina_termica.id_subsistema = (int) lexical_cast<double>(tokens.at(6).data());
+		usina_termica.id_usina = (int) lexical_cast<long double>(tokens.at(0).data());
+		usina_termica.quantidade_geracao_max = lexical_cast<long double>(tokens.at(1).data());
+		usina_termica.quantidade_geracao_min = lexical_cast<long double>(tokens.at(2).data());
+		usina_termica.coeficiente_custo_termica_a0 = lexical_cast<long double>(tokens.at(3).data());
+		usina_termica.coeficiente_custo_termica_a1 = lexical_cast<long double>(tokens.at(4).data());
+		usina_termica.coeficiente_custo_termica_a2 = lexical_cast<long double>(tokens.at(5).data());
+		usina_termica.id_subsistema = (int) lexical_cast<long double>(tokens.at(6).data());
 		usina_termica.geracoes = this->carregar_geracoes_usinas_termicas(usina_termica.id_usina, this->arquivoGeracoesTermicas);
 		termicas.push_back(usina_termica);
 
@@ -75,7 +75,7 @@ vector<GeracaoEnergia> CarregadorDados::carregar_geracoes_usinas_termicas(int id
 		string value(dados_arquivo.at(i).data());
 		split(tokens, value, is_any_of(delimitador));
 
-		if(((int) lexical_cast<double>(tokens.at(0).data())) == id_usina) {
+		if(((int) lexical_cast<long double>(tokens.at(0).data())) == id_usina) {
 			int periodo = 1;
 
 			while (periodo <= 60) { //Esse é o número de períodos definidos na classe OtimizacaoDespachoHidrotermicoGlobals do pj PHP
@@ -85,7 +85,7 @@ vector<GeracaoEnergia> CarregadorDados::carregar_geracoes_usinas_termicas(int id
 				GeracaoEnergia geracao;
 				geracao.periodo = periodo;
 				periodo++;
-				geracao.quantidade = lexical_cast<double>(tokens.at(0).data());
+				geracao.quantidade = lexical_cast<long double>(tokens.at(0).data());
 
 				geracoes.push_back(geracao);
 			}
@@ -116,31 +116,31 @@ vector<UsinaHidreletrica> CarregadorDados::carregarUsinasHidreletricas() {
 		split(tokens, linha, is_any_of(delemitador));
 
 		UsinaHidreletrica usina;
-		usina.id_usina = (int) lexical_cast<double>(tokens.at(0).data());
-		usina.jusante = (int) lexical_cast<double>(tokens.at(1).data());
-		usina.reservatorio.volume_maximo = lexical_cast<double>(tokens.at(2).data());
-		usina.reservatorio.volume_minimo = lexical_cast<double>(tokens.at(3).data());
+		usina.id_usina = (int) lexical_cast<long double>(tokens.at(0).data());
+		usina.jusante = (int) lexical_cast<long double>(tokens.at(1).data());
+		usina.reservatorio.volume_maximo = lexical_cast<long double>(tokens.at(2).data());
+		usina.reservatorio.volume_minimo = lexical_cast<long double>(tokens.at(3).data());
 
-		usina.coeficiente_cota_montante_a0 = lexical_cast<double>(tokens.at(4).data());
-		usina.coeficiente_cota_montante_a1 = lexical_cast<double>(tokens.at(5).data());
-		usina.coeficiente_cota_montante_a2 = lexical_cast<double>(tokens.at(6).data());
-		usina.coeficiente_cota_montante_a3 = lexical_cast<double>(tokens.at(7).data());
-		usina.coeficiente_cota_montante_a4 = lexical_cast<double>(tokens.at(8).data());
+		usina.coeficiente_cota_montante_a0 = lexical_cast<long double>(tokens.at(4).data());
+		usina.coeficiente_cota_montante_a1 = lexical_cast<long double>(tokens.at(5).data());
+		usina.coeficiente_cota_montante_a2 = lexical_cast<long double>(tokens.at(6).data());
+		usina.coeficiente_cota_montante_a3 = lexical_cast<long double>(tokens.at(7).data());
+		usina.coeficiente_cota_montante_a4 = lexical_cast<long double>(tokens.at(8).data());
 
-		usina.coeficiente_cota_jusante_a0 = lexical_cast<double>(tokens.at(9).data());
-		usina.coeficiente_cota_jusante_a1 = lexical_cast<double>(tokens.at(10).data());
-		usina.coeficiente_cota_jusante_a2 = lexical_cast<double>(tokens.at(11).data());
-		usina.coeficiente_cota_jusante_a3 = lexical_cast<double>(tokens.at(12).data());
-		usina.coeficiente_cota_jusante_a4 = lexical_cast<double>(tokens.at(13).data());
+		usina.coeficiente_cota_jusante_a0 = lexical_cast<long double>(tokens.at(9).data());
+		usina.coeficiente_cota_jusante_a1 = lexical_cast<long double>(tokens.at(10).data());
+		usina.coeficiente_cota_jusante_a2 = lexical_cast<long double>(tokens.at(11).data());
+		usina.coeficiente_cota_jusante_a3 = lexical_cast<long double>(tokens.at(12).data());
+		usina.coeficiente_cota_jusante_a4 = lexical_cast<long double>(tokens.at(13).data());
 
-		usina.tipo_perda_hidraulica = lexical_cast<double>(tokens.at(14).data());
-		usina.valor_perda_hidraulica = lexical_cast<double>(tokens.at(15).data());
-		usina.potencia_efetiva = lexical_cast<double>(tokens.at(16).data());
-		usina.produtividade_media = lexical_cast<double>(tokens.at(17).data());
-		usina.id_subsistema = (int) lexical_cast<double>(tokens.at(18).data());
+		usina.tipo_perda_hidraulica = lexical_cast<long double>(tokens.at(14).data());
+		usina.valor_perda_hidraulica = lexical_cast<long double>(tokens.at(15).data());
+		usina.potencia_efetiva = lexical_cast<long double>(tokens.at(16).data());
+		usina.produtividade_media = lexical_cast<long double>(tokens.at(17).data());
+		usina.id_subsistema = (int) lexical_cast<long double>(tokens.at(18).data());
 
-		usina.reservatorio.defluencia_minima = lexical_cast<double>(tokens.at(19).data());
-		usina.reservatorio.maximo_vazao_turbinada = lexical_cast<double>(tokens.at(20).data());
+		usina.reservatorio.defluencia_minima = lexical_cast<long double>(tokens.at(19).data());
+		usina.reservatorio.maximo_vazao_turbinada = lexical_cast<long double>(tokens.at(20).data());
 
 		usina = carregar_historico_operacao_reservatorio(usina);
 
@@ -167,7 +167,7 @@ UsinaHidreletrica CarregadorDados::carregar_historico_operacao_reservatorio(Usin
 		string value = dados_arquivo.at(i).data();
 		split(tokens, value, is_any_of(delimitador));
 
-		if (((int)lexical_cast<double>(tokens.at(0).data())) == usina.id_usina) {
+		if (((int)lexical_cast<long double>(tokens.at(0).data())) == usina.id_usina) {
 			int periodo = 1;
 			while(periodo <= 60) {
 				i++;
@@ -176,17 +176,17 @@ UsinaHidreletrica CarregadorDados::carregar_historico_operacao_reservatorio(Usin
 				HistoricoOperacaoReservatorio historico;
 
 				historico.periodo = periodo;
-				historico.volume = lexical_cast<double>(tokens.at(0).data());
-				historico.vazao_turbinada = lexical_cast<double>(tokens.at(1).data());
-				historico.vazao_vertida = lexical_cast<double>(tokens.at(2).data());
-				historico.afluencia_natural = lexical_cast<double>(tokens.at(4).data());
+				historico.volume = lexical_cast<long double>(tokens.at(0).data());
+				historico.vazao_turbinada = lexical_cast<long double>(tokens.at(1).data());
+				historico.vazao_vertida = lexical_cast<long double>(tokens.at(2).data());
+				historico.afluencia_natural = lexical_cast<long double>(tokens.at(4).data());
 				usina.reservatorio.historicoOperacao.push_back(historico);
 
 
 				GeracaoEnergia geracao;
 				geracao.periodo = periodo;
 
-				geracao.quantidade = lexical_cast<double>(tokens.at(3).data());
+				geracao.quantidade = lexical_cast<long double>(tokens.at(3).data());
 				usina.geracoes.push_back(geracao);
 
 				periodo++;
@@ -229,13 +229,13 @@ vector<Subsistema> CarregadorDados::carregarSubsistema() {
 		split(tokens, value, is_any_of(delimitador));
 
 		Subsistema subsistema;
-		subsistema.id_subsistema = (int) lexical_cast<double>(tokens.at(0).data());
-		subsistema.coeficiente_custo_deficit_a0 = lexical_cast<double>(tokens.at(1).data());
-		subsistema.coeficiente_custo_deficit_a1 = lexical_cast<double>(tokens.at(2).data());
-		subsistema.coeficiente_custo_deficit_a2 = lexical_cast<double>(tokens.at(3).data());
-		subsistema.demanda = lexical_cast<double>(tokens.at(4).data());
-		subsistema.intercambio_minimo = lexical_cast<double>(tokens.at(5).data());
-		subsistema.intercambio_maximo = lexical_cast<double>(tokens.at(6).data());
+		subsistema.id_subsistema = (int) lexical_cast<long double>(tokens.at(0).data());
+		subsistema.coeficiente_custo_deficit_a0 = lexical_cast<long double>(tokens.at(1).data());
+		subsistema.coeficiente_custo_deficit_a1 = lexical_cast<long double>(tokens.at(2).data());
+		subsistema.coeficiente_custo_deficit_a2 = lexical_cast<long double>(tokens.at(3).data());
+		subsistema.demanda = lexical_cast<long double>(tokens.at(4).data());
+		subsistema.intercambio_minimo = lexical_cast<long double>(tokens.at(5).data());
+		subsistema.intercambio_maximo = lexical_cast<long double>(tokens.at(6).data());
 		subsistema.deficits = carregarDeficitsSubsistemas(subsistema.id_subsistema);
 		subsistema.demandas = carregarDemandasSubsistema(subsistema.id_subsistema);
 		subsistema.intercambios = carregarIntercambiosSubsistema(subsistema.id_subsistema);
@@ -265,7 +265,7 @@ vector<Deficit> CarregadorDados::carregarDeficitsSubsistemas(int idSubsistema) {
 
 			Deficit deficit;
 			deficit.periodo = ++i;
-			deficit.deficit = lexical_cast<double>(tokens.at(posicao_susbsistema).data());
+			deficit.deficit = lexical_cast<long double>(tokens.at(posicao_susbsistema).data());
 
 			deficits.push_back(deficit);
 
@@ -295,9 +295,9 @@ vector<DemandaEnergia> CarregadorDados::carregarDemandasSubsistema(int idSubsist
 		if (tokens.size() == 5) {
 
 			DemandaEnergia demanda;
-			demanda.periodo = ++i;
 
-			demanda.quantidade = lexical_cast<double>(tokens.at(posicao_susbsistema).data());
+			demanda.periodo = ++i;
+			demanda.quantidade = lexical_cast<long double>(tokens.at(posicao_susbsistema).data());
 
 			demandas.push_back(demanda);
 
@@ -319,22 +319,22 @@ vector<Intercambio> CarregadorDados::carregarIntercambiosSubsistema(int idSubsis
 	string delimitador(" ");
 
 	int posicao_susbsistema = idSubsistema - 1;
-
-	for(int i = 0; i < dados_arquivo.size(); i++) {
+	int periodo = 1;
+	for(int i = posicao_susbsistema; i < dados_arquivo.size(); i=i+5) {
 		string value = dados_arquivo.at(i).data();
 		split(tokens, value, is_any_of(delimitador));
-
 		if (tokens.size() == 5) {
 
 			Intercambio intercambio;
-			intercambio.periodo = ++i;
-			intercambio.quantidade_subsistema_1 = lexical_cast<double>(tokens.at(0).data());
-			intercambio.quantidade_subsistema_2 = lexical_cast<double>(tokens.at(1).data());
-			intercambio.quantidade_subsistema_3 = lexical_cast<double>(tokens.at(2).data());
-			intercambio.quantidade_subsistema_4 = lexical_cast<double>(tokens.at(3).data());
-			intercambio.quantidade_subsistema_5 = lexical_cast<double>(tokens.at(4).data());
+			intercambio.periodo = periodo;
+			intercambio.quantidade_subsistema_1 = lexical_cast<long double>(tokens.at(0).data());
+			intercambio.quantidade_subsistema_2 = lexical_cast<long double>(tokens.at(1).data());
+			intercambio.quantidade_subsistema_3 = lexical_cast<long double>(tokens.at(2).data());
+			intercambio.quantidade_subsistema_4 = lexical_cast<long double>(tokens.at(3).data());
+			intercambio.quantidade_subsistema_5 = lexical_cast<long double>(tokens.at(4).data());
 
 			intercambios.push_back(intercambio);
+			periodo++;
 
 		}
 

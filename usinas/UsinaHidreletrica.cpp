@@ -23,19 +23,19 @@ void UsinaHidreletrica::atualizarBalancoHidrico(int periodo) {
 	HistoricoOperacaoReservatorio* historicoOperacao = this->reservatorio.obterHistoricoOperacao(periodo, 0);
 	HistoricoOperacaoReservatorio* historicoOperacaoAnterior = this->reservatorio.obterHistoricoOperacao(periodo - 1, this->reservatorio.volume_maximo);
 
-	double volume = OtimizacaoDespachoHidrotermicoGlobals::converterHectometroCubicoParaMetroCubico(historicoOperacao->volume, periodo);
-	double volumeAnterior = OtimizacaoDespachoHidrotermicoGlobals::converterHectometroCubicoParaMetroCubico(historicoOperacaoAnterior->volume, periodo);
+	long double volume = OtimizacaoDespachoHidrotermicoGlobals::converterHectometroCubicoParaMetroCubico(historicoOperacao->volume, periodo);
+	long double volumeAnterior = OtimizacaoDespachoHidrotermicoGlobals::converterHectometroCubicoParaMetroCubico(historicoOperacaoAnterior->volume, periodo);
 
-	double vazaoTotal = carregar_vazao_montante(periodo); // Equivalente a calcularVazaoMontante
-	double afluenciaNatural = carregar_afluencia_montante(periodo); // Equivalente a calcularVazaoMontante
+	long double vazaoTotal = carregar_vazao_montante(periodo); // Equivalente a calcularVazaoMontante
+	long double afluenciaNatural = carregar_afluencia_montante(periodo); // Equivalente a calcularVazaoMontante
 
-	double volumeAtualizado = volumeAnterior + vazaoTotal;
+	long double volumeAtualizado = volumeAnterior + vazaoTotal;
 	volumeAtualizado += historicoOperacao->vazao_turbinada;
 	volumeAtualizado += historicoOperacao->vazao_vertida;
 	volumeAtualizado += historicoOperacao->afluencia_natural;
 	volumeAtualizado += afluenciaNatural;
 
-	double result = volume - volumeAtualizado;
+	long double result = volume - volumeAtualizado;
 
 	if (abs((int)result) > OtimizacaoDespachoHidrotermicoGlobals::LIMIAR_ERRO_BALANCO_HIDRICO) {
 		volumeAtualizado = OtimizacaoDespachoHidrotermicoGlobals::converterMetroCubicoParaHectometroCubico(volumeAtualizado, periodo);
@@ -53,7 +53,7 @@ void UsinaHidreletrica::atualizarBalancoHidrico(int periodo) {
 			historicoOperacao->vazao_vertida = 0;
 
 			if (this->reservatorio.volume_minimo > historicoOperacao->volume) {
-				double volumeMinimoFaltante = this->reservatorio.volume_minimo - historicoOperacao->volume;
+				long double volumeMinimoFaltante = this->reservatorio.volume_minimo - historicoOperacao->volume;
 				historicoOperacao->vazao_turbinada -= OtimizacaoDespachoHidrotermicoGlobals::converterHectometroCubicoParaMetroCubico(volumeMinimoFaltante, periodo);
 				historicoOperacao->volume += volumeMinimoFaltante;
 
@@ -68,8 +68,8 @@ void UsinaHidreletrica::atualizarBalancoHidrico(int periodo) {
 }
 
 
-double UsinaHidreletrica::carregar_vazao_montante(int periodo) {
-	double total = 0.0;
+long double UsinaHidreletrica::carregar_vazao_montante(int periodo) {
+	long double total = 0.0;
 	for (int i = 0; i < this->montantes.size(); ++i) {
 		UsinaHidreletrica montante = OtimizacaoDespachoHidrotermicoGlobals::obterUsina(this->montantes.at(i));
 
@@ -81,9 +81,9 @@ double UsinaHidreletrica::carregar_vazao_montante(int periodo) {
 	return total;
 }
 
-double UsinaHidreletrica::carregar_afluencia_montante(int periodo) {
-  double total = 0.0;
-  for (int i = 0; i < this->montantes.size(); ++i) {
+long double UsinaHidreletrica::carregar_afluencia_montante(int periodo) {
+	long double total = 0.0;
+	for (int i = 0; i < this->montantes.size(); ++i) {
       UsinaHidreletrica montante = OtimizacaoDespachoHidrotermicoGlobals::obterUsina(montantes.at(i));
 
       if (montante.id_usina != -200) {//-200 não encontrou
@@ -95,8 +95,8 @@ double UsinaHidreletrica::carregar_afluencia_montante(int periodo) {
 }
 
 
-double UsinaHidreletrica::calcularGeracaoEnergiaComProdutividadeMedia(int periodo, double volume, double volumeAnterior, double vazaoTurbinada, double vazaoVertida) {
-	double resultado;
+long double UsinaHidreletrica::calcularGeracaoEnergiaComProdutividadeMedia(int periodo, long double volume, long double volumeAnterior, long double vazaoTurbinada, long double vazaoVertida) {
+	long double resultado;
 	if (periodo > 0) {
 	    HistoricoOperacaoReservatorio* historico = this->reservatorio.obterHistoricoOperacao(periodo, this->reservatorio.volume_maximo);
 	    HistoricoOperacaoReservatorio* historicoAnterior = this->reservatorio.obterHistoricoOperacao(periodo - 1, this->reservatorio.volume_maximo);
@@ -107,11 +107,11 @@ double UsinaHidreletrica::calcularGeracaoEnergiaComProdutividadeMedia(int period
 	    vazaoVertida = historico->vazao_vertida;
 	}
 
-	double phi = this->calcularPolinomioMontante((volume + volumeAnterior)/2);
-	double theta = this->calcularPolinomioJusante(vazaoVertida + vazaoTurbinada);
+	long double phi = this->calcularPolinomioMontante((volume + volumeAnterior)/2);
+	long double theta = this->calcularPolinomioJusante(vazaoVertida + vazaoTurbinada);
 
-	double alturaQuedaBruta = phi - theta;
-	double alturaQuedaLiquida;
+	long double alturaQuedaBruta = phi - theta;
+	long double alturaQuedaLiquida;
 
 	if (this->tipo_perda_hidraulica == 1) {
 		alturaQuedaLiquida = alturaQuedaBruta - (((this->valor_perda_hidraulica / 100) * alturaQuedaBruta));
@@ -127,25 +127,25 @@ double UsinaHidreletrica::calcularGeracaoEnergiaComProdutividadeMedia(int period
 	return resultado;
 }
 
-double UsinaHidreletrica::calcularPolinomioMontante(double vazaoTotal) {
+long double UsinaHidreletrica::calcularPolinomioMontante(long double vazaoTotal) {
 
-	  double A4 = this->coeficiente_cota_montante_a4 * pow(vazaoTotal, 4);
-	  double A3 = this->coeficiente_cota_montante_a3 * pow(vazaoTotal, 3);
-	  double A2 = this->coeficiente_cota_montante_a2 * pow(vazaoTotal, 2);
-	  double A1 = this->coeficiente_cota_montante_a1 * vazaoTotal;
+	long double A4 = this->coeficiente_cota_montante_a4 * pow(vazaoTotal, 4);
+	long double A3 = this->coeficiente_cota_montante_a3 * pow(vazaoTotal, 3);
+	long double A2 = this->coeficiente_cota_montante_a2 * pow(vazaoTotal, 2);
+	long double A1 = this->coeficiente_cota_montante_a1 * vazaoTotal;
 
-	  double resultado = this->coeficiente_cota_montante_a0 + A1 + A2 + A3 + A4;
+	long double resultado = this->coeficiente_cota_montante_a0 + A1 + A2 + A3 + A4;
 
-	  return resultado;
+	 return resultado;
 }
 
-double UsinaHidreletrica::calcularPolinomioJusante(double vazaoTotal) {
-	double A4 = this->coeficiente_cota_jusante_a4 * pow(vazaoTotal, 4);
-	  double A3 = this->coeficiente_cota_jusante_a3 * pow(vazaoTotal, 3);
-	  double A2 = this->coeficiente_cota_jusante_a2 * pow(vazaoTotal, 2);
-	  double A1 = this->coeficiente_cota_jusante_a1 * vazaoTotal;
+long double UsinaHidreletrica::calcularPolinomioJusante(long double vazaoTotal) {
+	long double A4 = this->coeficiente_cota_jusante_a4 * pow(vazaoTotal, 4);
+	long double A3 = this->coeficiente_cota_jusante_a3 * pow(vazaoTotal, 3);
+	long double A2 = this->coeficiente_cota_jusante_a2 * pow(vazaoTotal, 2);
+	long double A1 = this->coeficiente_cota_jusante_a1 * vazaoTotal;
 
-	  double resultado = this->coeficiente_cota_jusante_a0 + A1 + A2 + A3 + A4;
+	long double resultado = this->coeficiente_cota_jusante_a0 + A1 + A2 + A3 + A4;
 
 	  return resultado;
 }

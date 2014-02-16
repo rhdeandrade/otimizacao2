@@ -55,6 +55,7 @@ DemandaEnergia* Subsistema::obterDemandaEnergia(int periodo) {
 
 Deficit* Subsistema::obterDeficitSubsistema(int periodo) {
 	for (int i = 0; i < this->deficits.size(); i++) {
+		cout << periodo << " --- " << this->deficits.at(i).periodo << " ----- " << this->deficits.at(i).deficit << "\n";
 		if (this->deficits.at(i).periodo == periodo) {
 			return &this->deficits.at(i);
 		}

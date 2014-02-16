@@ -16,18 +16,18 @@ using namespace std;
 class Reservatorio {
 public:
 
-	double volume_maximo;
-	double volume_minimo;
-	double minimo_vazao_turbinada;
-	double maximo_vazao_turbinada;
-	double maximo_vazao_vertida;
-	double defluencia_minima;
+	long double volume_maximo;
+	long double volume_minimo;
+	long double minimo_vazao_turbinada;
+	long double maximo_vazao_turbinada;
+	long double maximo_vazao_vertida;
+	long double defluencia_minima;
 	/**
 	 * @var Array of HistoricoOperacaoReservatorio
 	 */
 	vector<HistoricoOperacaoReservatorio> historicoOperacao;
 
-	HistoricoOperacaoReservatorio* obterHistoricoOperacao(int periodo, double volumeInicial);
+	HistoricoOperacaoReservatorio* obterHistoricoOperacao(int periodo, long double volumeInicial);
 
 	Reservatorio();
 };

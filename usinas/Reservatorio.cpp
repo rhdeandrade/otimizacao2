@@ -19,7 +19,7 @@ Reservatorio::Reservatorio() {
 
 }
 
-HistoricoOperacaoReservatorio* Reservatorio::obterHistoricoOperacao(int periodo, double volumeInicial) {
+HistoricoOperacaoReservatorio* Reservatorio::obterHistoricoOperacao(int periodo, long double volumeInicial) {
 	for (int i = 0; i < this->historicoOperacao.size(); i++) {
 		if(this->historicoOperacao.at(i).periodo == periodo) {
 			return &this->historicoOperacao.at(i);

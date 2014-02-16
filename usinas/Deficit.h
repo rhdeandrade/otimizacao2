@@ -11,7 +11,7 @@
 class Deficit {
 public:
     int periodo;
-    double deficit;
+    long double deficit;
 	Deficit();
 };
 

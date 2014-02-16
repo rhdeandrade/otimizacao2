@@ -11,7 +11,7 @@
 class DemandaEnergia {
 public:
     int periodo;
-    double quantidade;
+    long double quantidade;
 	DemandaEnergia();
 };
 

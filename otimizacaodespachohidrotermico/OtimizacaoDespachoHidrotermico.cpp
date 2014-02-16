@@ -79,6 +79,8 @@ void OtimizacaoDespachoHidrotermico::validarPlanoProducao() {
 	//this->planoProducao.restricoes.defluencia_minima->printMessageConstraintBroken();
 
 	this->planoProducao.restricoes.limite_variaveis->checkConstraint();
+
+
 	//this->planoProducao.restricoes.limite_variaveis->printMessageConstraintBroken();
 }
 

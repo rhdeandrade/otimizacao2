@@ -17,7 +17,7 @@ RestricaoDefluenciaMinima::RestricaoDefluenciaMinima(vector<UsinaHidreletrica> h
 
 void RestricaoDefluenciaMinima::checkConstraint() {
 	bool isConstraintOK = true;
-	double result = 0;
+	long double result = 0;
 
 	for(int i = 1; i <= OtimizacaoDespachoHidrotermicoGlobals::NUM_PERIODO; i++) {
 		for(int j = 0; j < this->hidreletricas.size(); j++) {

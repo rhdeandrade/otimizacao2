@@ -41,11 +41,13 @@ void OtimizacaoDespachoHidrotermicoGlobals::atualizarPlanoProducao(PlanoProducao
 	int i;
 	for (i = 1; i <= OtimizacaoDespachoHidrotermicoGlobals::NUM_PERIODO; i++) {
 		for (int j = 0; j < planoProducao->subsistemas.size(); j++) {
-			double totalGeracaoHidreletricas = 0;
-			double totalGeracaoTermicas = 0;
-			double totalIntercambio = 0;
+			Subsistema subsistema = planoProducao->subsistemas.at(j);
 
-			vector<UsinaTermica> termicas = OtimizacaoDespachoHidrotermicoGlobals::obterUsinasTermicasDoSubsistema(planoProducao->termicas, planoProducao->subsistemas.at(j).id_subsistema);
+			long double totalGeracaoHidreletricas = 0;
+			long double totalGeracaoTermicas = 0;
+			long double totalIntercambio = 0;
+
+			vector<UsinaTermica> termicas = OtimizacaoDespachoHidrotermicoGlobals::obterUsinasTermicasDoSubsistema(planoProducao->termicas, subsistema.id_subsistema);
 
 			for (int k = 0; k < termicas.size(); k++) {
 				GeracaoEnergia* geracao = termicas.at(k).obterGeracaoEnergia(i);
@@ -53,8 +55,7 @@ void OtimizacaoDespachoHidrotermicoGlobals::atualizarPlanoProducao(PlanoProducao
 			}
 
 
-
-			vector<UsinaHidreletrica> hidreletricas = OtimizacaoDespachoHidrotermicoGlobals::obterUsinasHidreletricasDoSubsistema(planoProducao->hidreletricas, planoProducao->subsistemas.at(j).id_subsistema);
+			vector<UsinaHidreletrica> hidreletricas = OtimizacaoDespachoHidrotermicoGlobals::obterUsinasHidreletricasDoSubsistema(planoProducao->hidreletricas, subsistema.id_subsistema);
 
 			for (int k = 0; k < hidreletricas.size(); k++) {
 				hidreletricas.at(k).atualizarBalancoHidrico(i);
@@ -62,34 +63,33 @@ void OtimizacaoDespachoHidrotermicoGlobals::atualizarPlanoProducao(PlanoProducao
 				totalGeracaoHidreletricas += geracao->quantidade;
 			}
 
-			Intercambio* intercambio = planoProducao->subsistemas.at(j).obterIntercambioEnergia(i);
-			double totalEnviado = intercambio->totalEnergiaEnviada();
+			Intercambio* intercambio = subsistema.obterIntercambioEnergia(i);
+			long double totalEnviado = intercambio->totalEnergiaEnviada();
 
-			double totalRecebido = 0;
+			long double totalRecebido = 0;
 			for (int k = 0; k < planoProducao->subsistemas.size(); k++) {
 				intercambio = planoProducao->subsistemas.at(k).obterIntercambioEnergia(i);
-				totalRecebido += intercambio->totalEnergiaRecebida(planoProducao->subsistemas.at(j).id_subsistema);
+				totalRecebido += intercambio->totalEnergiaRecebida(subsistema.id_subsistema);
 			}
-
 			totalIntercambio = totalRecebido - totalEnviado;
-			DemandaEnergia* demanda = planoProducao->subsistemas.at(j).obterDemandaEnergia(i);
-			Deficit* deficit = planoProducao->subsistemas.at(j).obterDeficitSubsistema(i);
+			cout << "Termicas: " << totalGeracaoTermicas << " Hidreletricas: " << totalGeracaoHidreletricas << " " << totalIntercambio << "\n";
 
-			double result = totalGeracaoTermicas + totalGeracaoHidreletricas;
+			DemandaEnergia* demanda = subsistema.obterDemandaEnergia(i);
+			Deficit* deficit = subsistema.obterDeficitSubsistema(i);
+
+			long double result = totalGeracaoTermicas + totalGeracaoHidreletricas;
 			result += totalIntercambio;
+			result = demanda->quantidade - result;
 
+			cout << totalGeracaoTermicas << " " << totalGeracaoHidreletricas << " " << totalIntercambio << " " << demanda->quantidade << " " << "Resultado incrivel esse brother: " << result << "\n";
 
-			if (demanda) {
-				result = result - demanda->quantidade;
+			if (result > 0) {
+				deficit->deficit = result;
+				cout << "Atualizando Deficit: " << deficit->deficit << " " << deficit->periodo << "\n";
 			}
-
-			if (deficit)
-				if (result > 0) {
-					deficit->deficit = result;
-				}
-				else {
-					deficit->deficit = 0;
-				}
+			else {
+				deficit->deficit = 0;
+			}
 		}
 	}
 
@@ -122,23 +122,23 @@ vector<UsinaHidreletrica> OtimizacaoDespachoHidrotermicoGlobals::obterUsinasHidr
 	return hidreletricas;
 }
 
-double OtimizacaoDespachoHidrotermicoGlobals::converterHectometroCubicoParaMetroCubico(double valor, int periodo) {
+long double OtimizacaoDespachoHidrotermicoGlobals::converterHectometroCubicoParaMetroCubico(long double valor, int periodo) {
 	return valor * (pow(10.0, 6.0) / quantidadeSegundosMes(periodo));
 }
 
-double OtimizacaoDespachoHidrotermicoGlobals::converterMetroCubicoParaHectometroCubico(double valor, int periodo) {
+long double OtimizacaoDespachoHidrotermicoGlobals::converterMetroCubicoParaHectometroCubico(long double valor, int periodo) {
 	return valor / (pow(10.0, 6.0) / quantidadeSegundosMes(periodo));
 }
 
-double OtimizacaoDespachoHidrotermicoGlobals::quantidadeSegundosMes(int periodo) {
+long double OtimizacaoDespachoHidrotermicoGlobals::quantidadeSegundosMes(int periodo) {
 	return 3600 * quantidadeHorasMes(periodo);
 }
 
-double OtimizacaoDespachoHidrotermicoGlobals::quantidadeHorasMes(int periodo) {
+long double OtimizacaoDespachoHidrotermicoGlobals::quantidadeHorasMes(int periodo) {
 	return 24 * quantidadeDiasMes(periodo);
 }
 
-double OtimizacaoDespachoHidrotermicoGlobals::quantidadeDiasMes(int periodo) {
+long double OtimizacaoDespachoHidrotermicoGlobals::quantidadeDiasMes(int periodo) {
 	int mes_atual = mesCorrente(periodo);
 
 	if (mes_atual == 1)

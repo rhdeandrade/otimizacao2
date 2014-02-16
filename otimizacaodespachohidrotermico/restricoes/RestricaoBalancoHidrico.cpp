@@ -16,7 +16,7 @@ RestricaoBalancoHidrico::RestricaoBalancoHidrico(vector<UsinaHidreletrica> hidre
 
 void RestricaoBalancoHidrico::checkConstraint() {
 	bool isConstraintOK = true;
-	double result = 0;
+	long double result = 0;
 	for(int i = 1; i <= OtimizacaoDespachoHidrotermicoGlobals::NUM_PERIODO; i++) {
 		for(int j = 0; j < this->hidreletricas.size(); j++) {
 			UsinaHidreletrica hidreletrica = this->hidreletricas.at(j);
@@ -24,11 +24,11 @@ void RestricaoBalancoHidrico::checkConstraint() {
 			HistoricoOperacaoReservatorio* historico = hidreletrica.reservatorio.obterHistoricoOperacao(i, 0);
 			HistoricoOperacaoReservatorio* historicoOperacaoAnterior = hidreletrica.reservatorio.obterHistoricoOperacao(i-1, hidreletrica.reservatorio.volume_maximo);
 
-			double volume = OtimizacaoDespachoHidrotermicoGlobals::converterHectometroCubicoParaMetroCubico(historico->volume, i);
-			double volumeAnterior = OtimizacaoDespachoHidrotermicoGlobals::converterHectometroCubicoParaMetroCubico(historicoOperacaoAnterior->volume, i);
+			long double volume = OtimizacaoDespachoHidrotermicoGlobals::converterHectometroCubicoParaMetroCubico(historico->volume, i);
+			long double volumeAnterior = OtimizacaoDespachoHidrotermicoGlobals::converterHectometroCubicoParaMetroCubico(historicoOperacaoAnterior->volume, i);
 
-			double vazaoTotal = hidreletrica.carregar_vazao_montante(i); // Equivalente a calcularVazaoMontante
-			double afluenciaNatural = hidreletrica.carregar_afluencia_montante(i); // Equivalente a calcularVazaoMontante
+			long double vazaoTotal = hidreletrica.carregar_vazao_montante(i); // Equivalente a calcularVazaoMontante
+			long double afluenciaNatural = hidreletrica.carregar_afluencia_montante(i); // Equivalente a calcularVazaoMontante
 
 			if (hidreletrica.id_usina == 73)
 				afluenciaNatural = 0;
