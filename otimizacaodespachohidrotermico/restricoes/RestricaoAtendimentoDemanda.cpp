@@ -18,12 +18,12 @@ RestricaoAtendimentoDemanda::RestricaoAtendimentoDemanda(vector<Subsistema> subs
 
 }
 
-void RestricaoAtendimentoDemanda::checkConstraint() {
+void RestricaoAtendimentoDemanda::checkConstraint(vector<Subsistema> sub) {
 	bool isContraintOk = true;
 	long double result = 0;
 
 	for(int i = 1; i <= OtimizacaoDespachoHidrotermicoGlobals::NUM_PERIODO; i++) {
-		for(int j = 0; j < this->subsistemas.size(); j++) {
+		for(int j = 0; j < sub.size(); j++) {
 			Subsistema subsistema = this->subsistemas.at(j);
 
 			long double totalGeracaoHidreletricas = 0;
@@ -56,20 +56,23 @@ void RestricaoAtendimentoDemanda::checkConstraint() {
 				Subsistema ss = this->subsistemas.at(k);
 
 				intercambio = ss.obterIntercambioEnergia(i);
-				totalRecebido += intercambio->totalEnergiaRecebida(i);
+				totalRecebido += intercambio->totalEnergiaRecebida(subsistema.id_subsistema);
 			}
 
 
 
 			totalIntercambio = totalRecebido - totalEnviado;
+			//cout << totalEnviado << " " << totalRecebido << "\n";
 
 			DemandaEnergia* demanda = subsistema.obterDemandaEnergia(i);
 			Deficit* deficit = subsistema.obterDeficitSubsistema(i);
 
 			result = totalGeracaoHidreletricas + totalGeracaoTermicas + totalIntercambio;
-
 			result -= demanda->quantidade;
 			result += deficit->deficit;
+
+
+			//cout << totalGeracaoHidreletricas << " " << totalGeracaoTermicas << " " << totalIntercambio << "\n";
 
 			if ( (abs(result) > this->errorThreshold()) && result < 0) {
 				isContraintOk = false;
@@ -79,7 +82,7 @@ void RestricaoAtendimentoDemanda::checkConstraint() {
 	}
 
 	if (isContraintOk) {
-		cout << "Não há violações de atendimendo a demanda" << "\n";
+		cout << "Não Consta violações de atendimendo a demanda" << "\n";
 	}
 	else {
 		cout << "Restrição de atendimento de demanda foi quebrada." << "\n";

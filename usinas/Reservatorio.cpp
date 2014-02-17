@@ -16,6 +16,7 @@
 #include "HistoricoOperacaoReservatorio.h"
 
 Reservatorio::Reservatorio() {
+	this->maximo_vazao_vertida = 99999999;
 
 }
 

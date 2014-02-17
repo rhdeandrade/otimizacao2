@@ -41,13 +41,13 @@ void OtimizacaoDespachoHidrotermicoGlobals::atualizarPlanoProducao(PlanoProducao
 	int i;
 	for (i = 1; i <= OtimizacaoDespachoHidrotermicoGlobals::NUM_PERIODO; i++) {
 		for (int j = 0; j < planoProducao->subsistemas.size(); j++) {
-			Subsistema subsistema = planoProducao->subsistemas.at(j);
+			Subsistema* subsistema = &planoProducao->subsistemas.at(j);
 
 			long double totalGeracaoHidreletricas = 0;
 			long double totalGeracaoTermicas = 0;
 			long double totalIntercambio = 0;
 
-			vector<UsinaTermica> termicas = OtimizacaoDespachoHidrotermicoGlobals::obterUsinasTermicasDoSubsistema(planoProducao->termicas, subsistema.id_subsistema);
+			vector<UsinaTermica> termicas = OtimizacaoDespachoHidrotermicoGlobals::obterUsinasTermicasDoSubsistema(planoProducao->termicas, subsistema->id_subsistema);
 
 			for (int k = 0; k < termicas.size(); k++) {
 				GeracaoEnergia* geracao = termicas.at(k).obterGeracaoEnergia(i);
@@ -55,7 +55,7 @@ void OtimizacaoDespachoHidrotermicoGlobals::atualizarPlanoProducao(PlanoProducao
 			}
 
 
-			vector<UsinaHidreletrica> hidreletricas = OtimizacaoDespachoHidrotermicoGlobals::obterUsinasHidreletricasDoSubsistema(planoProducao->hidreletricas, subsistema.id_subsistema);
+			vector<UsinaHidreletrica> hidreletricas = OtimizacaoDespachoHidrotermicoGlobals::obterUsinasHidreletricasDoSubsistema(planoProducao->hidreletricas, subsistema->id_subsistema);
 
 			for (int k = 0; k < hidreletricas.size(); k++) {
 				hidreletricas.at(k).atualizarBalancoHidrico(i);
@@ -63,38 +63,34 @@ void OtimizacaoDespachoHidrotermicoGlobals::atualizarPlanoProducao(PlanoProducao
 				totalGeracaoHidreletricas += geracao->quantidade;
 			}
 
-			Intercambio* intercambio = subsistema.obterIntercambioEnergia(i);
+			Intercambio* intercambio = subsistema->obterIntercambioEnergia(i);
 			long double totalEnviado = intercambio->totalEnergiaEnviada();
 
 			long double totalRecebido = 0;
 			for (int k = 0; k < planoProducao->subsistemas.size(); k++) {
 				intercambio = planoProducao->subsistemas.at(k).obterIntercambioEnergia(i);
-				totalRecebido += intercambio->totalEnergiaRecebida(subsistema.id_subsistema);
+				totalRecebido += intercambio->totalEnergiaRecebida(subsistema->id_subsistema);
 			}
 			totalIntercambio = totalRecebido - totalEnviado;
-			cout << "Termicas: " << totalGeracaoTermicas << " Hidreletricas: " << totalGeracaoHidreletricas << " " << totalIntercambio << "\n";
 
-			DemandaEnergia* demanda = subsistema.obterDemandaEnergia(i);
-			Deficit* deficit = subsistema.obterDeficitSubsistema(i);
+			DemandaEnergia* demanda = subsistema->obterDemandaEnergia(i);
+			Deficit* deficit = subsistema->obterDeficitSubsistema(i);
 
 			long double result = totalGeracaoTermicas + totalGeracaoHidreletricas;
 			result += totalIntercambio;
 			result = demanda->quantidade - result;
 
-			cout << totalGeracaoTermicas << " " << totalGeracaoHidreletricas << " " << totalIntercambio << " " << demanda->quantidade << " " << "Resultado incrivel esse brother: " << result << "\n";
+			//cout << totalGeracaoTermicas << " " << totalGeracaoHidreletricas << " " << totalIntercambio << " " << demanda->quantidade << " " << "Resultado incrivel esse brother: " << result << "\n";
 
 			if (result > 0) {
 				deficit->deficit = result;
-				cout << "Atualizando Deficit: " << deficit->deficit << " " << deficit->periodo << "\n";
+				//cout << "Atualizando Deficit: " << deficit->deficit << " " << deficit->periodo << "\n";
 			}
 			else {
 				deficit->deficit = 0;
 			}
 		}
 	}
-
-	cout << "Impressão dentro do atualizar plano produçao";
-	Report::imprimir_resultados(*planoProducao);
 }
 
 

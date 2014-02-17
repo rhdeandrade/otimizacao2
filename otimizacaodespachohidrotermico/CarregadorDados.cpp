@@ -264,7 +264,7 @@ vector<Deficit> CarregadorDados::carregarDeficitsSubsistemas(int idSubsistema) {
 		if (tokens.size() == 5) {
 
 			Deficit deficit;
-			deficit.periodo = ++i;
+			deficit.periodo = i+1;
 			deficit.deficit = lexical_cast<long double>(tokens.at(posicao_susbsistema).data());
 
 			deficits.push_back(deficit);
@@ -296,7 +296,7 @@ vector<DemandaEnergia> CarregadorDados::carregarDemandasSubsistema(int idSubsist
 
 			DemandaEnergia demanda;
 
-			demanda.periodo = ++i;
+			demanda.periodo = i+1;
 			demanda.quantidade = lexical_cast<long double>(tokens.at(posicao_susbsistema).data());
 
 			demandas.push_back(demanda);
@@ -332,6 +332,8 @@ vector<Intercambio> CarregadorDados::carregarIntercambiosSubsistema(int idSubsis
 			intercambio.quantidade_subsistema_3 = lexical_cast<long double>(tokens.at(2).data());
 			intercambio.quantidade_subsistema_4 = lexical_cast<long double>(tokens.at(3).data());
 			intercambio.quantidade_subsistema_5 = lexical_cast<long double>(tokens.at(4).data());
+			//cout << intercambio.quantidade_subsistema_1 << " " << intercambio.quantidade_subsistema_2 << " " << intercambio.quantidade_subsistema_3 << " " << intercambio.quantidade_subsistema_4 << " " << intercambio.quantidade_subsistema_5 << "\n";
+
 
 			intercambios.push_back(intercambio);
 			periodo++;

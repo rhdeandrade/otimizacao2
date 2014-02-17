@@ -82,10 +82,11 @@ bool RestricaoLimiteVariaveis::capacidadeVazaoTurbinadaReservatorio(UsinaHidrele
 bool RestricaoLimiteVariaveis::capacidadeVazaoVertidaReservatorio(UsinaHidreletrica hidreletrica, int periodo) {
 	HistoricoOperacaoReservatorio* historico = hidreletrica.reservatorio.obterHistoricoOperacao(periodo, 0);
 
+	//cout << hidreletrica.reservatorio.maximo_vazao_vertida << " " << historico->vazao_vertida << "\n";
 	if (hidreletrica.reservatorio.maximo_vazao_vertida < historico->vazao_vertida) {
 		return true;
 	}
-	if (hidreletrica.reservatorio.maximo_vazao_turbinada < 0) {
+	if (historico->vazao_turbinada < 0) {
 		return true;
 	}
 

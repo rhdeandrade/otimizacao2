@@ -69,7 +69,7 @@ void OtimizacaoDespachoHidrotermico::ativarRestricoes(bool balancoHidrico, bool 
 }
 
 void OtimizacaoDespachoHidrotermico::validarPlanoProducao() {
-	this->planoProducao.restricoes.atendimento_demanda->checkConstraint();
+	this->planoProducao.restricoes.atendimento_demanda->checkConstraint(planoProducao.subsistemas);
 	//this->planoProducao.restricoes.atendimento_demanda->printMessageConstraintBroken();
 
 	this->planoProducao.restricoes.balanco_hidrico->checkConstraint();

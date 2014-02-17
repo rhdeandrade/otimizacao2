@@ -23,15 +23,13 @@ int main() {
 	// for more information about date/time format
 	strftime(buf, sizeof(buf), "%Y-%m-%d.%X", &tstruct);
 	cout.setf(ios::fixed);
-	cout.precision(21);
+	cout.precision(20);
 
 	OtimizacaoDespachoHidrotermico odh;
 	odh.carregarDados("lote5", 10);
 	//Report::imprimir_resultados(odh.planoProducao);
 
 	odh.ativarRestricoes(true, true, true, true);
-
-
 
 	cout << "Start: " << buf << "\n";
 
