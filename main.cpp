@@ -38,4 +38,16 @@ int main() {
 	Report::imprimir_resultados(odh.planoProducao);
 	odh.validarPlanoProducao();
 
+	int operacaoAtomica = 4;
+
+	cout << "Executando operação atômica: " << operacaoAtomica << "\n";
+
+	odh.executarOtimizacaoHillClimbing(operacaoAtomica, 60, 3);
+	odh.validarPlanoProducao();
+
+	strftime(buf, sizeof(buf), "%Y-%m-%d.%X", &tstruct);
+
+	Report::imprimir_resultados(odh.planoProducao);
+	cout << "End: " << buf << "\n";
+
 }

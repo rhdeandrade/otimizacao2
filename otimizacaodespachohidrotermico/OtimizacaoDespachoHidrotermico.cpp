@@ -22,6 +22,7 @@
 #include "PlanoProducao.cpp"
 #include "CarregadorDados.cpp"
 #include "OtimizacaoDespachoHidrotermicoGlobals.cpp"
+#include "../heuristicsearch/HillClimbing.cpp"
 
 #include <boost/algorithm/string.hpp>
 #include <boost/lexical_cast.hpp>
@@ -82,6 +83,13 @@ void OtimizacaoDespachoHidrotermico::validarPlanoProducao() {
 
 
 	//this->planoProducao.restricoes.limite_variaveis->printMessageConstraintBroken();
+}
+
+void OtimizacaoDespachoHidrotermico::executarOtimizacaoHillClimbing(int operacaoAtomica, int numeroMaximoIteracoes, int numeroMaximoIteracoesPerturbacao) {
+	this->ativarRestricoes(true, true, true, true);
+	HillClimbing hc(this->planoProducao, numeroMaximoIteracoes, numeroMaximoIteracoesPerturbacao);
+
+	this->planoProducao = hc.execute(operacaoAtomica);
 }
 
 #endif

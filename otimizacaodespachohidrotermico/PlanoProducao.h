@@ -18,12 +18,15 @@ class PlanoProducao {
 
 public:
 	PlanoProducao();
-
+	PlanoProducao(PlanoProducao obj);
 	vector<UsinaTermica> termicas;
 	vector<UsinaHidreletrica> hidreletricas;
 	vector<Subsistema> subsistemas;
 	Restricao restricoes;
 	void ativarRestricoes(bool balancoHidrico, bool atendimentoDemanda, bool defluenciaMinima, bool limiteVariaveis);
+	long double objectiveFunctionValue();
+	void perturbation(int atomicOperationId, int counter);
+
 
 };
 

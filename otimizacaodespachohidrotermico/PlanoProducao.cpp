@@ -24,6 +24,12 @@ PlanoProducao::PlanoProducao() {
 
 }
 
+PlanoProducao::PlanoProducao(PlanoProducao obj) {
+	this->termicas(obj.termicas);
+	this->hidreletricas(obj.hidreletricas);
+	this->subsistemas(obj.subsistemas);
+}
+
 std::vector<string> FileHandler::open_file(string file_name) {
 
   fstream myfile;
@@ -73,6 +79,34 @@ void PlanoProducao::ativarRestricoes(bool balancoHidrico, bool atendimentoDemand
 		RestricaoLimiteVariaveis* restricaoLimiteVariaveis = new RestricaoLimiteVariaveis(this->hidreletricas, this->termicas);
 		this->restricoes.limite_variaveis = restricaoLimiteVariaveis;
 	}
+
+}
+
+long double PlanoProducao::objectiveFunctionValue() {
+	long double custo = 0;
+
+	for (int i = 0; i < OtimizacaoDespachoHidrotermicoGlobals::NUM_PERIODO; i++) {
+		long double custoTermica = 0;
+		long double custoDeficit = 0;
+		for (int j = 0; j < this->termicas.size(); j++) {
+			custoTermica += this->termicas.at(j).custo_termica_mega_watt_medio(i);
+		}
+
+		for (int j = 0; j < this->subsistemas.size(); j++) {
+			if (this->subsistemas.at(j).id_subsistema != 5)
+				custoDeficit += this->subsistemas.at(j).custoDeficit(i);
+		}
+
+		long double result = custoTermica + custoDeficit;
+		result *= this->calcularValorPresente(i);
+
+		custo += result;
+	}
+
+	return custo;
+}
+
+void PlanoProducao::perturbation(int atomicOperationId, int counter) {
 
 }
 
