@@ -34,7 +34,7 @@ public:
     Intercambio* obterIntercambioEnergia(int periodo);
     DemandaEnergia* obterDemandaEnergia(int periodo);
     Deficit* obterDeficitSubsistema(int periodo);
-
+    long double custoDeficit(int periodo);
 	Subsistema();
 };
 

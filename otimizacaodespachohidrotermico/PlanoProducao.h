@@ -26,6 +26,8 @@ public:
 	void ativarRestricoes(bool balancoHidrico, bool atendimentoDemanda, bool defluenciaMinima, bool limiteVariaveis);
 	long double objectiveFunctionValue();
 	void perturbation(int atomicOperationId, int counter);
+	long double calcularValorPresente(int periodo);
+	long double objectiveFunctionValue();
 
 
 };

@@ -53,8 +53,8 @@ void HillClimbing::perturbation(int atomicOperationId, int counter) {
 }
 
 bool HillClimbing::changeCurrentState() {
-	long double cost1 = this->currentState().objectiveFunctionValue();
-	long double cost2 = this->nextState().objectiveFunctionValue();
+	long double cost1 = this->currentState.objectiveFunctionValue();
+	long double cost2 = this->nextState.objectiveFunctionValue();
 
 	if (cost1 > cost2) {
 		return true;

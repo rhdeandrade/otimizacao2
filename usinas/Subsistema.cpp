@@ -19,7 +19,6 @@
 
 Subsistema::Subsistema() {
 
-
 }
 
 Intercambio* Subsistema::obterIntercambioEnergia(int periodo) {
@@ -66,5 +65,18 @@ Deficit* Subsistema::obterDeficitSubsistema(int periodo) {
 	d->periodo = 0;
 
 	return d;
+}
+
+long double Subsistema::custoDeficit(int periodo) {
+	Deficit* deficit = obterDeficitSubsistema(periodo);
+
+	double result = 0;
+	if (deficit != NULL) {
+		result = pow(deficit->deficit, 2);
+		result *= this->coeficiente_custo_deficit_a2;
+		result += this->coeficiente_custo_deficit_a1 * deficit->deficit;
+		result += this->coeficiente_custo_deficit_a0;
+	}
+	return result;
 }
 #endif
