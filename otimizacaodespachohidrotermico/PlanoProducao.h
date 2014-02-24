@@ -18,7 +18,7 @@ class PlanoProducao {
 
 public:
 	PlanoProducao();
-	PlanoProducao(PlanoProducao obj);
+	PlanoProducao(PlanoProducao *obj);
 	vector<UsinaTermica> termicas;
 	vector<UsinaHidreletrica> hidreletricas;
 	vector<Subsistema> subsistemas;
@@ -27,7 +27,6 @@ public:
 	long double objectiveFunctionValue();
 	void perturbation(int atomicOperationId, int counter);
 	long double calcularValorPresente(int periodo);
-	long double objectiveFunctionValue();
 
 
 };

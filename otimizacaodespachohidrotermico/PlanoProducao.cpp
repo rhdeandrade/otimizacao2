@@ -23,10 +23,17 @@ PlanoProducao::PlanoProducao() {
 
 }
 
-PlanoProducao::PlanoProducao(PlanoProducao obj) {
-	this->termicas(obj.termicas);
-	this->hidreletricas(obj.hidreletricas);
-	this->subsistemas(obj.subsistemas);
+PlanoProducao::PlanoProducao(PlanoProducao *obj) {
+	vector<UsinaTermica> t(obj->termicas);
+	vector<UsinaHidreletrica> h(obj->hidreletricas);
+	vector<Subsistema> s(obj->subsistemas);
+
+	this->termicas = t;
+	this->hidreletricas = h;
+	this->subsistemas = s;
+//	this->termicas(obj->termicas);
+//	this->hidreletricas(obj->hidreletricas);
+//	this->subsistemas(obj->subsistemas);
 }
 
 std::vector<string> FileHandler::open_file(string file_name) {
@@ -106,16 +113,16 @@ long double PlanoProducao::objectiveFunctionValue() {
 }
 
 void PlanoProducao::perturbation(int atomicOperationId, int counter) {
-	switch (atomicOperationId) {
-	case 1:
-		//Operacao 1
-	case 2:
-		//Operacao 2
-	case 3:
-		//Operacao 3
-	case 4:
-		//Operacao 4
-	}
+//	switch (atomicOperationId) {
+//	case 1:
+//		//Operacao 1
+//	case 2:
+//		//Operacao 2
+//	case 3:
+//		//Operacao 3
+//	case 4:
+//		//Operacao 4
+//	}
 }
 
 long double PlanoProducao::calcularValorPresente(int periodo) {
@@ -124,30 +131,6 @@ long double PlanoProducao::calcularValorPresente(int periodo) {
 	result = 1 / result;
 	return result;
 
-}
-
-long double PlanoProducao::objectiveFunctionValue() {
-	long double custo = 0;
-
-	for (int i = 0; i < OtimizacaoDespachoHidrotermicoGlobals::NUM_PERIODO; i++) {
-		long double custoTermica = 0;
-		long double custoDeficit = 0;
-		for (int j = 0; j < this->termicas.size(); j++) {
-			custoTermica += this->termicas.at(j).custo_termica_mega_watt_medio(i);
-		}
-
-		for (int j = 0; j < this->subsistemas.size(); j++) {
-			if (this->subsistemas.at(j).id_subsistema != 5)
-				custoDeficit += this->subsistemas.at(j).custoDeficit(i);
-		}
-
-		long double result = custoTermica + custoDeficit;
-		result *= this->calcularValorPresente(i);
-
-		custo += result;
-	}
-
-	return custo;
 }
 
 #endif
