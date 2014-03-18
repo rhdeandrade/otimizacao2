@@ -17,8 +17,8 @@ Report::Report() {
 }
 
 void Report::imprimir_resultados(PlanoProducao plano_producao) {
-  cout << "Funcao Objetivo\n";
-  //print_funcao_objetivo
+  cout << "Funcao Objetivo: ";
+  cout << plano_producao.objectiveFunctionValue() << "\n";
 
   double total_energia_hidraulica = 0;
 

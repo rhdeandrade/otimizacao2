@@ -13,6 +13,7 @@
 #include "../usinas/UsinaTermica.h"
 
 #include "restricoes/Restricao.h"
+#include "OperacaoAtomicaQuatro.h"
 
 class PlanoProducao {
 

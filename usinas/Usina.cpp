@@ -26,6 +26,7 @@ GeracaoEnergia* Usina::obterGeracaoEnergia(int periodo) {
 			return g;
 	}
 
+
 	GeracaoEnergia* geracao = new GeracaoEnergia();
 	geracao->periodo = periodo;
 

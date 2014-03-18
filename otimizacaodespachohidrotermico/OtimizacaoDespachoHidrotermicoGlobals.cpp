@@ -190,6 +190,92 @@ UsinaHidreletrica OtimizacaoDespachoHidrotermicoGlobals::obterUsina(int id_usina
 	UsinaHidreletrica usina;
 	usina.id_usina = -200;
 	return usina;
+
+}
+
+vector<UsinaHidreletrica> OtimizacaoDespachoHidrotermicoGlobals::ordenarHidreletricasPorTamanhoReservatorio(vector<UsinaHidreletrica> hidreletricas, bool comJusantes) {
+
+
+	for (int i = 1; i < hidreletricas.size(); i++) {
+		int j = i;
+		while((hidreletricas.at(j).reservatorio.obterTamanho() > hidreletricas.at(j - 1).reservatorio.obterTamanho())) {
+
+			UsinaHidreletrica* aux = &hidreletricas.at(j);
+			UsinaHidreletrica* usina_j = &hidreletricas.at(j);
+			UsinaHidreletrica* usina_j_1 = &hidreletricas.at(j-1);
+
+			*usina_j = *usina_j_1;
+			*usina_j_1 = *aux;
+			j--;
+
+			if (j == 0) {
+				break;
+			}
+
+		}
+	}
+	if (!comJusantes)
+		return hidreletricas;
+	else {
+		vector<UsinaHidreletrica> result;
+
+		for(int i = 0; i <= hidreletricas.size(); i++) {
+			UsinaHidreletrica hidreletrica = hidreletricas.at(i);
+
+			if (!find(hidreletricas.begin(), hidreletricas.end(), hidreletrica) != hidreletricas.end()) {
+				result.push_back(hidreletrica);
+				this->obterUsinaJusante(hidreletrica, result);
+			}
+
+		}
+
+		return hidreletricas;
+	}
+
+}
+
+void OtimizacaoDespachoHidrotermicoGlobals::obterUsinaJusante(UsinaHidreletrica h, vector<UsinaHidreletrica> result) {
+
+	if (h.jusante == 0) {
+		return;
+	}
+
+	UsinaHidreletrica jusante = this->obterUsina(h.jusante);
+	result.push_back(jusante);
+	this->obterUsinaJusante(jusante, result);
+}
+
+vector<UsinaTermica> OtimizacaoDespachoHidrotermicoGlobals::obterTermicasComPrioridadeDesativacao(vector<UsinaTermica> termicas, int periodo) {
+
+	vector<UsinaTermica> urgente;
+	vector<UsinaTermica> normal;
+
+	termicas = this->ordenarTermicasPorCusto(termicas, periodo);
+
+	for(int i = 0; i < termicas.size(); i++) {
+		UsinaTermica termica = termicas.at(i);
+
+		if (find(termica.periodos_desativacao_obrigatorio.begin(), termica.periodos_desativacao_obrigatorio.end(), periodo) != termica.periodos_desativacao_obrigatorio.end()) {
+			urgente.push_back(termica);
+		}
+		else {
+			normal.push_back(termica);
+		}
+
+	}
+
+	urgente.insert(urgente.end(), normal.begin(), normal.end());
+
+	return urgente;
+}
+
+vector<UsinaTermica> OtimizacaoDespachoHidrotermicoGlobals::ordenarTermicasPorCusto(vector<UsinaTermica> termicas, int periodo) {
+
+	int totalTermicas = termicas.size();
+
+	//TODO: ParadoAqui
+
+	return termicas;
 }
 
 #endif

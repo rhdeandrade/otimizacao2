@@ -35,4 +35,8 @@ HistoricoOperacaoReservatorio* Reservatorio::obterHistoricoOperacao(int periodo,
 	return historico;
 }
 
+long double Reservatorio::obterTamanho() {
+	return this->volume_maximo - this->volume_minimo;
+}
+
 #endif

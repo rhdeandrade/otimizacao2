@@ -13,7 +13,7 @@
 #include <cmath>
 
 #include "GeracaoEnergia.h"
-//#include "Usina.cpp"
+#include "Usina.cpp"
 
 UsinaTermica::UsinaTermica() {
 	this->coeficiente_custo_termica_a2 = 0;
@@ -32,6 +32,8 @@ long double UsinaTermica::custo_termica_mega_watt_medio(int periodo) {
 	resultado *= this->coeficiente_custo_termica_a2;
 	resultado += this->coeficiente_custo_termica_a1 * g->quantidade;
 	resultado += this->coeficiente_custo_termica_a0;
+
+//	cout << "Resultado: " << periodo << "\n";
 	return resultado;
 }
 

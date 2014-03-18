@@ -17,6 +17,7 @@
 #include "restricoes/RestricaoDefluenciaMinima.cpp"
 #include "restricoes/RestricaoBalancoHidrico.cpp"
 #include "restricoes/RestricaoLimiteVariaveis.cpp"
+#include "OperacaoAtomicaQuatro.cpp"
 
 PlanoProducao::PlanoProducao() {
 	// TODO Auto-generated constructor stub
@@ -89,13 +90,12 @@ void PlanoProducao::ativarRestricoes(bool balancoHidrico, bool atendimentoDemand
 long double PlanoProducao::objectiveFunctionValue() {
 	long double custo = 0;
 
-	for (int i = 0; i < OtimizacaoDespachoHidrotermicoGlobals::NUM_PERIODO;
-			i++) {
+	for (int i = 1; i <= OtimizacaoDespachoHidrotermicoGlobals::NUM_PERIODO; i++) {
 		long double custoTermica = 0;
 		long double custoDeficit = 0;
 		for (int j = 0; j < this->termicas.size(); j++) {
-			custoTermica += this->termicas.at(j).custo_termica_mega_watt_medio(
-					i);
+//			cout << this->termicas.at(j).custo_termica_mega_watt_medio(i) << "\n";
+			custoTermica += this->termicas.at(j).custo_termica_mega_watt_medio(i);
 		}
 
 		for (int j = 0; j < this->subsistemas.size(); j++) {
@@ -113,16 +113,20 @@ long double PlanoProducao::objectiveFunctionValue() {
 }
 
 void PlanoProducao::perturbation(int atomicOperationId, int counter) {
-//	switch (atomicOperationId) {
-//	case 1:
-//		//Operacao 1
-//	case 2:
-//		//Operacao 2
-//	case 3:
-//		//Operacao 3
-//	case 4:
-//		//Operacao 4
-//	}
+	switch (atomicOperationId) {
+	case 1:
+		cout << "Operação não implementada" << "\n";
+		break;
+	case 2:
+		cout << "Operação não implementada" << "\n";
+		break;
+	case 3:
+		cout << "Operação não implementada" << "\n";
+		break;
+	case 4:
+		OperacaoAtomicaQuatro::execute(this, counter);
+		break;
+	}
 }
 
 long double PlanoProducao::calcularValorPresente(int periodo) {
