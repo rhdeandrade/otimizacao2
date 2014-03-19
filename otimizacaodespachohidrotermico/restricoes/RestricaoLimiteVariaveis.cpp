@@ -99,7 +99,7 @@ bool RestricaoLimiteVariaveis::capacidadeGeracaoEnergiaTermica(UsinaTermica term
 	if (termica.quantidade_geracao_max < geracao->quantidade) {
 		return true;
 	}
-	if (termica.quantidade_geracao_min > geracao->quantidade) {
+	if (termica.quantidadeGeracaoMin > geracao->quantidade) {
 		return true;
 	}
 

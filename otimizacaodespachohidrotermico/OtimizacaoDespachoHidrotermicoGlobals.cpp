@@ -255,7 +255,7 @@ vector<UsinaTermica> OtimizacaoDespachoHidrotermicoGlobals::obterTermicasComPrio
 	for(int i = 0; i < termicas.size(); i++) {
 		UsinaTermica termica = termicas.at(i);
 
-		if (find(termica.periodos_desativacao_obrigatorio.begin(), termica.periodos_desativacao_obrigatorio.end(), periodo) != termica.periodos_desativacao_obrigatorio.end()) {
+		if (find(termica.periodosDesativacaoObrigatorio.begin(), termica.periodosDesativacaoObrigatorio.end(), periodo) != termica.periodosDesativacaoObrigatorio.end()) {
 			urgente.push_back(termica);
 		}
 		else {

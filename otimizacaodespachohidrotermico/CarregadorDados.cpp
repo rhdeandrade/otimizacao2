@@ -47,7 +47,7 @@ vector<UsinaTermica> CarregadorDados::carregar_usinas_termicas() {
 
 		usina_termica.id_usina = (int) lexical_cast<long double>(tokens.at(0).data());
 		usina_termica.quantidade_geracao_max = lexical_cast<long double>(tokens.at(1).data());
-		usina_termica.quantidade_geracao_min = lexical_cast<long double>(tokens.at(2).data());
+		usina_termica.quantidadeGeracaoMin = lexical_cast<long double>(tokens.at(2).data());
 		usina_termica.coeficiente_custo_termica_a0 = lexical_cast<long double>(tokens.at(3).data());
 		usina_termica.coeficiente_custo_termica_a1 = lexical_cast<long double>(tokens.at(4).data());
 		usina_termica.coeficiente_custo_termica_a2 = lexical_cast<long double>(tokens.at(5).data());

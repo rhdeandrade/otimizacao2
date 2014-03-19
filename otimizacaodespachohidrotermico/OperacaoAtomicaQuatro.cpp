@@ -12,8 +12,6 @@
 #include "OperacaoAtomicaQuatro.h"
 
 
-using namespace std;
-
 OperacaoAtomicaQuatro::OperacaoAtomicaQuatro() {
 	// TODO Auto-generated constructor stub
 
@@ -81,7 +79,7 @@ long double OperacaoAtomicaQuatro::minimizarEnergiaTermica(vector<UsinaTermica> 
 		long double saldo = *totalEnergiaHidraulicaSobrando- geracao->quantidade;
 
 		if (saldo > 0) {
-			long double quantidade = termicas.at(i).iniciar_processo_desativacao(periodo);
+			long double quantidade = termicas.at(i).iniciarProcessoDesativacao(periodo);
 			*totalEnergiaHidraulicaSobrando -= quantidade;
 
 			result += quantidade;

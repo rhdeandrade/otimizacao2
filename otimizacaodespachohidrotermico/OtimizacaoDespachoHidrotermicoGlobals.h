@@ -15,7 +15,6 @@
 
 using namespace std;
 
-
 class OtimizacaoDespachoHidrotermicoGlobals {
 public:
 	vector<int> cascata74;

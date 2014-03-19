@@ -8,6 +8,8 @@
 #ifndef HILLCLIMBING_H_
 #define HILLCLIMBING_H_
 
+using namespace std;
+
 class HillClimbing {
 public:
 	HillClimbing(PlanoProducao s, int m, int mp);
