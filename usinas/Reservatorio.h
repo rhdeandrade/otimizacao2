@@ -16,8 +16,8 @@ using namespace std;
 class Reservatorio {
 public:
 
-	long double volume_maximo;
-	long double volume_minimo;
+	long double volumeMaximo;
+	long double volumeMinimo;
 	long double minimo_vazao_turbinada;
 	long double maximo_vazao_turbinada;
 	long double maximo_vazao_vertida;

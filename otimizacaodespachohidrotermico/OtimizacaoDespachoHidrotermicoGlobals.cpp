@@ -273,7 +273,21 @@ vector<UsinaTermica> OtimizacaoDespachoHidrotermicoGlobals::ordenarTermicasPorCu
 
 	int totalTermicas = termicas.size();
 
-	//TODO: ParadoAqui
+	for (int i = 1; i < totalTermicas; i++) {
+		int j = i;
+		while(termicas.at(j).custoTermicaMegaWattMedio(periodo) < termicas.at(j - 1).custoTermicaMegaWattMedio(periodo)) {
+			UsinaTermica* aux = &termicas.at(j);
+			UsinaTermica* usina_j = &termicas.at(j);
+			UsinaTermica* usina_j_1 = &termicas.at(j-1);
+			*usina_j = *usina_j_1;
+			*usina_j_1 = *aux;
+			j--;
+
+			if(j == 0) {
+				break;
+			}
+		}
+	}
 
 	return termicas;
 }

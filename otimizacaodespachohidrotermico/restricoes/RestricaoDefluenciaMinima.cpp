@@ -25,7 +25,7 @@ void RestricaoDefluenciaMinima::checkConstraint() {
 
 			HistoricoOperacaoReservatorio* historico = hidreletrica.reservatorio.obterHistoricoOperacao(i, 0);
 
-			result = (hidreletrica.reservatorio.defluencia_minima - (historico->vazao_vertida + historico->vazao_turbinada));
+			result = (hidreletrica.reservatorio.defluencia_minima - (historico->vazaoVertida + historico->vazaoTurbinada));
 
 			if (result > this->errorThreshold()) {
 				isConstraintOK = false;

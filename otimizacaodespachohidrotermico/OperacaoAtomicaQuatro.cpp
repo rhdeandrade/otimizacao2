@@ -55,10 +55,10 @@ long double OperacaoAtomicaQuatro::planejarMaximizacaoEnergiaHidraulica(vector<U
 		}
 		else {
 			if (hidreletricas.at(i).reservatorio.obterTamanho() > 0) {
-				result += hidreletricas.at(i).maximizar_producao_energia(periodo, UsinaHidreletrica::TIPO_MAXIMIZACAO_RESERVATORIO, true);
+				result += hidreletricas.at(i).maximizarProducaoEnergia(periodo, UsinaHidreletrica::TIPO_MAXIMIZACAO_RESERVATORIO, true);
 			}
 			else {
-				result += hidreletricas.at(i).maximizar_producao_energia(periodo, UsinaHidreletrica::TIPO_MAXIMIZACAO_AFLUENCIA_NATURAL, true);
+				result += hidreletricas.at(i).maximizarProducaoEnergia(periodo, UsinaHidreletrica::TIPO_MAXIMIZACAO_AFLUENCIA_NATURAL, true);
 			}
 
 			GeracaoEnergia* geracao = hidreletricas.at(i).obterGeracaoEnergia(periodo);
@@ -74,7 +74,7 @@ long double OperacaoAtomicaQuatro::planejarMaximizacaoEnergiaHidraulica(vector<U
 long double OperacaoAtomicaQuatro::minimizarEnergiaTermica(vector<UsinaTermica> termicas, int periodo, long double* totalEnergiaHidraulicaSobrando) {
 	long double result = 0;
 
-	termicas = OtimizacaoDespachoHidrotermicoGlobals::obter_termicas_com_prioridade_desativacao(termicas, periodo);
+	termicas = OtimizacaoDespachoHidrotermicoGlobals::obterTermicasComPrioridadeDesativacao(termicas, periodo);
 
 	for (int i = 0; i < termicas.size(); i++) {
 		GeracaoEnergia* geracao = termicas.at(i).obterGeracaoEnergia(periodo);
@@ -106,10 +106,10 @@ long double OperacaoAtomicaQuatro::produzirEnergiaHidraulica(vector<UsinaHidrele
 
 		if (totalEnergiaTermicaDesligada > totalEnergiaProduzida) {
 			if (hidreletricas.at(i).reservatorio.obterTamanho() > 0) {
-				totalEnergiaProduzida += hidreletricas.at(i).maximizar_producao_energia(periodo, UsinaHidreletrica::TIPO_MAXIMIZACAO_RESERVATORIO, false);
+				totalEnergiaProduzida += hidreletricas.at(i).maximizarProducaoEnergia(periodo, UsinaHidreletrica::TIPO_MAXIMIZACAO_RESERVATORIO, false);
 			}
 			else {
-				totalEnergiaProduzida += hidreletricas.at(i).maximizar_producao_energia(periodo, UsinaHidreletrica::TIPO_MAXIMIZACAO_AFLUENCIA_NATURAL, false);
+				totalEnergiaProduzida += hidreletricas.at(i).maximizarProducaoEnergia(periodo, UsinaHidreletrica::TIPO_MAXIMIZACAO_AFLUENCIA_NATURAL, false);
 			}
 		}
 	}

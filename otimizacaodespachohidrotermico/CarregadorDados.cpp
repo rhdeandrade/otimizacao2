@@ -118,8 +118,8 @@ vector<UsinaHidreletrica> CarregadorDados::carregarUsinasHidreletricas() {
 		UsinaHidreletrica usina;
 		usina.id_usina = (int) lexical_cast<long double>(tokens.at(0).data());
 		usina.jusante = (int) lexical_cast<long double>(tokens.at(1).data());
-		usina.reservatorio.volume_maximo = lexical_cast<long double>(tokens.at(2).data());
-		usina.reservatorio.volume_minimo = lexical_cast<long double>(tokens.at(3).data());
+		usina.reservatorio.volumeMaximo = lexical_cast<long double>(tokens.at(2).data());
+		usina.reservatorio.volumeMinimo = lexical_cast<long double>(tokens.at(3).data());
 
 		usina.coeficiente_cota_montante_a0 = lexical_cast<long double>(tokens.at(4).data());
 		usina.coeficiente_cota_montante_a1 = lexical_cast<long double>(tokens.at(5).data());
@@ -177,8 +177,8 @@ UsinaHidreletrica CarregadorDados::carregar_historico_operacao_reservatorio(Usin
 
 				historico.periodo = periodo;
 				historico.volume = lexical_cast<long double>(tokens.at(0).data());
-				historico.vazao_turbinada = lexical_cast<long double>(tokens.at(1).data());
-				historico.vazao_vertida = lexical_cast<long double>(tokens.at(2).data());
+				historico.vazaoTurbinada = lexical_cast<long double>(tokens.at(1).data());
+				historico.vazaoVertida = lexical_cast<long double>(tokens.at(2).data());
 				historico.afluencia_natural = lexical_cast<long double>(tokens.at(4).data());
 				usina.reservatorio.historicoOperacao.push_back(historico);
 

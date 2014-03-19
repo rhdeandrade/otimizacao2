@@ -55,10 +55,10 @@ void RestricaoLimiteVariaveis::checkConstraint() {
 bool RestricaoLimiteVariaveis::capacidadeArmazenamentoReservatorio(UsinaHidreletrica hidreletrica, int periodo) {
 	HistoricoOperacaoReservatorio* historico = hidreletrica.reservatorio.obterHistoricoOperacao(periodo, 0);
 
-	if (hidreletrica.reservatorio.volume_maximo < historico->volume) {
+	if (hidreletrica.reservatorio.volumeMaximo < historico->volume) {
 		return true;
 	}
-	if (hidreletrica.reservatorio.volume_minimo > historico->volume) {
+	if (hidreletrica.reservatorio.volumeMinimo > historico->volume) {
 		return true;
 	}
 
@@ -69,10 +69,10 @@ bool RestricaoLimiteVariaveis::capacidadeArmazenamentoReservatorio(UsinaHidrelet
 bool RestricaoLimiteVariaveis::capacidadeVazaoTurbinadaReservatorio(UsinaHidreletrica hidreletrica, int periodo) {
 	HistoricoOperacaoReservatorio* historico = hidreletrica.reservatorio.obterHistoricoOperacao(periodo, 0);
 
-	if (hidreletrica.reservatorio.maximo_vazao_turbinada < historico->vazao_turbinada) {
+	if (hidreletrica.reservatorio.maximo_vazao_turbinada < historico->vazaoTurbinada) {
 		return true;
 	}
-	if (hidreletrica.reservatorio.minimo_vazao_turbinada > historico->vazao_turbinada) {
+	if (hidreletrica.reservatorio.minimo_vazao_turbinada > historico->vazaoTurbinada) {
 		return true;
 	}
 
@@ -83,10 +83,10 @@ bool RestricaoLimiteVariaveis::capacidadeVazaoVertidaReservatorio(UsinaHidreletr
 	HistoricoOperacaoReservatorio* historico = hidreletrica.reservatorio.obterHistoricoOperacao(periodo, 0);
 
 	//cout << hidreletrica.reservatorio.maximo_vazao_vertida << " " << historico->vazao_vertida << "\n";
-	if (hidreletrica.reservatorio.maximo_vazao_vertida < historico->vazao_vertida) {
+	if (hidreletrica.reservatorio.maximo_vazao_vertida < historico->vazaoVertida) {
 		return true;
 	}
-	if (historico->vazao_turbinada < 0) {
+	if (historico->vazaoTurbinada < 0) {
 		return true;
 	}
 

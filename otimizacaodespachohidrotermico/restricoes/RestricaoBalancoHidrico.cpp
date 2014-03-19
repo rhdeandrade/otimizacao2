@@ -22,7 +22,7 @@ void RestricaoBalancoHidrico::checkConstraint() {
 			UsinaHidreletrica hidreletrica = this->hidreletricas.at(j);
 
 			HistoricoOperacaoReservatorio* historico = hidreletrica.reservatorio.obterHistoricoOperacao(i, 0);
-			HistoricoOperacaoReservatorio* historicoOperacaoAnterior = hidreletrica.reservatorio.obterHistoricoOperacao(i-1, hidreletrica.reservatorio.volume_maximo);
+			HistoricoOperacaoReservatorio* historicoOperacaoAnterior = hidreletrica.reservatorio.obterHistoricoOperacao(i-1, hidreletrica.reservatorio.volumeMaximo);
 
 			long double volume = OtimizacaoDespachoHidrotermicoGlobals::converterHectometroCubicoParaMetroCubico(historico->volume, i);
 			long double volumeAnterior = OtimizacaoDespachoHidrotermicoGlobals::converterHectometroCubicoParaMetroCubico(historicoOperacaoAnterior->volume, i);
@@ -33,7 +33,7 @@ void RestricaoBalancoHidrico::checkConstraint() {
 			if (hidreletrica.id_usina == 73)
 				afluenciaNatural = 0;
 
-			result = volume - (((((volumeAnterior + vazaoTotal) - historico->vazao_turbinada) - historico->vazao_vertida) + historico->afluencia_natural) - afluenciaNatural);
+			result = volume - (((((volumeAnterior + vazaoTotal) - historico->vazaoTurbinada) - historico->vazaoVertida) + historico->afluencia_natural) - afluenciaNatural);
 
 			if (abs(result > this->errorThreshold())) {
 				isConstraintOK = false;

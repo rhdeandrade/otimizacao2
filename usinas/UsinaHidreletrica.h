@@ -48,6 +48,9 @@ public:
 	long double calcularGeracaoEnergiaComProdutividadeMedia(int periodo,long double volume, long double volumeAnterior, long double vazaoTurbinada, long double vazaoVertida);
 	long double calcularPolinomioMontante(long double vazaoTotal);
 	long double calcularPolinomioJusante(long double vazaoTotal);
+	long double maximizarProducaoEnergia(int periodo, char tipoMaximizacao, bool previsao);
+	HistoricoOperacaoReservatorio maximizarVazaoTurbinadaMinimizarVazaoVertida(HistoricoOperacaoReservatorio historico);
+	HistoricoOperacaoReservatorio maximizarProducaoReservatorio(HistoricoOperacaoReservatorio historico);
 };
 
 #endif /* USINAHIDRELETRICA_H_ */

@@ -26,7 +26,8 @@ public:
 	vector<int> periodos_desativacao_obrigatorio;
 
 	UsinaTermica();
-	long double custo_termica_mega_watt_medio(int periodo);
+	long double custoTermicaMegaWattMedio(int periodo);
+	long double iniciarProcessoDesativacao(int periodo);
 
 
 };

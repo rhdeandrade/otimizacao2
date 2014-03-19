@@ -12,8 +12,8 @@ class HistoricoOperacaoReservatorio {
 public:
     int periodo;
     long double volume;
-    long double vazao_turbinada;
-    long double vazao_vertida;
+    long double vazaoTurbinada;
+    long double vazaoVertida;
     long double afluencia_natural;
 	HistoricoOperacaoReservatorio();
 };

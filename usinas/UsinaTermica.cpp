@@ -24,7 +24,7 @@ UsinaTermica::UsinaTermica() {
 
 }
 
-long double UsinaTermica::custo_termica_mega_watt_medio(int periodo) {
+long double UsinaTermica::custoTermicaMegaWattMedio(int periodo) {
 	GeracaoEnergia* g = this->obterGeracaoEnergia(periodo);
 
 	long double resultado = pow(g->quantidade, 2);
@@ -35,6 +35,31 @@ long double UsinaTermica::custo_termica_mega_watt_medio(int periodo) {
 
 //	cout << "Resultado: " << periodo << "\n";
 	return resultado;
+}
+
+long double UsinaTermica::iniciarProcessoDesativacao(int periodo) {
+	long double resultado = 0.0;
+	if (find(this->periodos_desativacao_obrigatorio.begin(), this->periodos_desativacao_obrigatorio.end(), periodo) != this->periodos_desativacao_obrigatorio.end()) {
+		double status = this->statusUsina(periodo);
+		double result = this->desativarUsina(periodo);
+		double novoStatus = this->statusUsina(periodo);
+
+		if (status != novoStatus) {
+			this->adicionarPeriodosDesativacaoObrigatorio(periodo);
+		}
+
+		return result;
+	}
+	bool previsao;
+	if (this->verificarTempoMinimoAtivacao(periodo)) {
+		previsao = false;
+		this->adicionarPeriodosDesativacaoObrigatorio(periodo);
+	}
+	else {
+		previsao = true;
+	}
+
+	return this->desativarUsina(periodo, previsao);
 }
 
 #endif

@@ -95,7 +95,7 @@ long double PlanoProducao::objectiveFunctionValue() {
 		long double custoDeficit = 0;
 		for (int j = 0; j < this->termicas.size(); j++) {
 //			cout << this->termicas.at(j).custo_termica_mega_watt_medio(i) << "\n";
-			custoTermica += this->termicas.at(j).custo_termica_mega_watt_medio(i);
+			custoTermica += this->termicas.at(j).custoTermicaMegaWattMedio(i);
 		}
 
 		for (int j = 0; j < this->subsistemas.size(); j++) {
