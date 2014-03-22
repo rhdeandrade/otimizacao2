@@ -124,7 +124,8 @@ void PlanoProducao::perturbation(int atomicOperationId, int counter) {
 		cout << "Operação não implementada" << "\n";
 		break;
 	case 4:
-		OperacaoAtomicaQuatro::execute(this, counter);
+		OperacaoAtomicaQuatro opQuatro;
+		opQuatro.execute(this, counter);
 		break;
 	}
 }

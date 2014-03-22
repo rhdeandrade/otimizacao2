@@ -8,12 +8,17 @@
 #ifndef OPERACAOATOMICAQUATRO_H_
 #define OPERACAOATOMICAQUATRO_H_
 
+
+#include "PlanoProducao.h"
+
 using namespace std;
+
+class PlanoProducao;
 
 class OperacaoAtomicaQuatro {
 public:
 	OperacaoAtomicaQuatro();
-	static PlanoProducao execute(PlanoProducao* planoProducao, int periodo);
+	PlanoProducao execute(PlanoProducao* planoProducao, int periodo);
 
 	long double planejarMaximizacaoEnergiaHidraulica(vector<UsinaHidreletrica> hidreletricas, int periodo);
 	long double minimizarEnergiaTermica(vector<UsinaTermica> termicas, int periodo, long double* totalEnergiaHidraulicaSobrando);

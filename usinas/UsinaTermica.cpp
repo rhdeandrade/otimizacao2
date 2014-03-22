@@ -112,7 +112,7 @@ bool UsinaTermica::verificarTempoMinimoAtivacao(int periodo) {
 	return true;
 }
 
-long double UsinaTermica::desativarUsina(int periodo, bool previsao = false) {
+long double UsinaTermica::desativarUsina(int periodo, bool previsao) {
   long double result = 0;
   GeracaoEnergia* geracao = this->obterGeracaoEnergia(periodo);
 

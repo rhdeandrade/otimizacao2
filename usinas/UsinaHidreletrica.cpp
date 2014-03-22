@@ -204,9 +204,9 @@ HistoricoOperacaoReservatorio UsinaHidreletrica::maximizarProducaoReservatorio(H
 	long double vazaoTotal = this->carregar_vazao_montante(historico.periodo);
 	long double afluenciaNatural = this->carregar_afluencia_montante(historico.periodo);
 
-	HistoricoOperacaoReservatorio historicoAnterior = this->reservatorio.obterHistoricoOperacao(historico.periodo - 1, this->reservatorio.volumeMaximo);
+	HistoricoOperacaoReservatorio* historicoAnterior = this->reservatorio.obterHistoricoOperacao(historico.periodo - 1, this->reservatorio.volumeMaximo);
 
-	long double volumeMensal = OtimizacaoDespachoHidrotermicoGlobals::converterHectometroCubicoParaMetroCubico(historicoAnterior.volume, historico.periodo) + vazaoTotal;
+	long double volumeMensal = OtimizacaoDespachoHidrotermicoGlobals::converterHectometroCubicoParaMetroCubico(historicoAnterior->volume, historico.periodo) + vazaoTotal;
 	volumeMensal += historico.afluencia_natural;
 	volumeMensal += afluenciaNatural;
 

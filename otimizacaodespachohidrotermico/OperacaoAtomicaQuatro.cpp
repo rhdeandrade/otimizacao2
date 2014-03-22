@@ -10,7 +10,7 @@
 
 
 #include "OperacaoAtomicaQuatro.h"
-
+#include "PlanoProducao.cpp"
 
 OperacaoAtomicaQuatro::OperacaoAtomicaQuatro() {
 	// TODO Auto-generated constructor stub
@@ -33,7 +33,7 @@ PlanoProducao OperacaoAtomicaQuatro::execute(PlanoProducao* planoProducao, int p
 		long double totalEnergiaHidraulicaProduzida = this->produzirEnergiaHidraulica(hidreletricas, periodo, totalEnergiaTermicaDesligada);
 	}
 
-	planoProducao = OtimizacaoDespachoHidrotermicoGlobals::atualizarPlanoProducao(planoProducao);
+	OtimizacaoDespachoHidrotermicoGlobals::atualizarPlanoProducao(planoProducao);
 
 	return planoProducao;
 

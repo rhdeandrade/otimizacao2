@@ -214,6 +214,7 @@ vector<UsinaHidreletrica> OtimizacaoDespachoHidrotermicoGlobals::ordenarHidrelet
 
 		}
 	}
+	/**
 	if (!comJusantes)
 		return hidreletricas;
 	else {
@@ -231,6 +232,9 @@ vector<UsinaHidreletrica> OtimizacaoDespachoHidrotermicoGlobals::ordenarHidrelet
 
 		return hidreletricas;
 	}
+	*/
+
+	return hidreletricas;
 
 }
 
@@ -240,9 +244,9 @@ void OtimizacaoDespachoHidrotermicoGlobals::obterUsinaJusante(UsinaHidreletrica 
 		return;
 	}
 
-	UsinaHidreletrica jusante = this->obterUsina(h.jusante);
+	UsinaHidreletrica jusante = obterUsina(h.jusante);
 	result.push_back(jusante);
-	this->obterUsinaJusante(jusante, result);
+	obterUsinaJusante(jusante, result);
 }
 
 vector<UsinaTermica> OtimizacaoDespachoHidrotermicoGlobals::obterTermicasComPrioridadeDesativacao(vector<UsinaTermica> termicas, int periodo) {
@@ -250,7 +254,7 @@ vector<UsinaTermica> OtimizacaoDespachoHidrotermicoGlobals::obterTermicasComPrio
 	vector<UsinaTermica> urgente;
 	vector<UsinaTermica> normal;
 
-	termicas = this->ordenarTermicasPorCusto(termicas, periodo);
+	termicas = ordenarTermicasPorCusto(termicas, periodo);
 
 	for(int i = 0; i < termicas.size(); i++) {
 		UsinaTermica termica = termicas.at(i);
