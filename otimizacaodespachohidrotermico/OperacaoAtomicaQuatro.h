@@ -18,11 +18,11 @@ class PlanoProducao;
 class OperacaoAtomicaQuatro {
 public:
 	OperacaoAtomicaQuatro();
-	PlanoProducao execute(PlanoProducao* planoProducao, int periodo);
+	PlanoProducao* execute(PlanoProducao* planoProducao, int periodo);
 
-	long double planejarMaximizacaoEnergiaHidraulica(vector<UsinaHidreletrica> hidreletricas, int periodo);
-	long double minimizarEnergiaTermica(vector<UsinaTermica> termicas, int periodo, long double* totalEnergiaHidraulicaSobrando);
-	long double produzirEnergiaHidraulica(vector<UsinaHidreletrica> hidreletricas, int periodo, double totalEnergiaTermicaDesligada);
+	long double planejarMaximizacaoEnergiaHidraulica(vector<UsinaHidreletrica>* hidreletricas, int periodo);
+	long double minimizarEnergiaTermica(vector<UsinaTermica>* termicas, int periodo, long double* totalEnergiaHidraulicaSobrando);
+	long double produzirEnergiaHidraulica(vector<UsinaHidreletrica>* hidreletricas, int periodo, double totalEnergiaTermicaDesligada);
 };
 
 #endif /* OPERACAOATOMICAQUATRO_H_ */

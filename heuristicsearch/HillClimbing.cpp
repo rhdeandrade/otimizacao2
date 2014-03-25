@@ -26,7 +26,6 @@ PlanoProducao HillClimbing::execute(int atomicOperationId) {
 
 	while(1) {
 		this->perturbation(atomicOperationId, counter);
-
 		if (this->stopMainLoop(counter)) {
 			break;
 		}
@@ -41,14 +40,17 @@ void HillClimbing::perturbation(int atomicOperationId, int counter) {
 	PlanoProducao aux(this->currentState);
 	this->nextState = aux;
 
-	for(int i; i < this->maximumPerturbationNumberForIteration; i++) {
-		this->nextState.perturbation(atomicOperationId, counter);
+	int c = counter;
+	for(int i = 0; i < this->maximumPerturbationNumberForIteration; i++) {
+
+		this->nextState.perturbation(atomicOperationId, c);
+
 
 		if (this->changeCurrentState()) {
 			PlanoProducao p(this->nextState);
 			this->currentState = p;
 		}
-		counter++;
+		c++;
 	}
 
 

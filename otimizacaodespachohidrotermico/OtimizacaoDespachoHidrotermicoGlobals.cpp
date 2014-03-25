@@ -193,16 +193,16 @@ UsinaHidreletrica OtimizacaoDespachoHidrotermicoGlobals::obterUsina(int id_usina
 
 }
 
-vector<UsinaHidreletrica> OtimizacaoDespachoHidrotermicoGlobals::ordenarHidreletricasPorTamanhoReservatorio(vector<UsinaHidreletrica> hidreletricas, bool comJusantes) {
+vector<UsinaHidreletrica>* OtimizacaoDespachoHidrotermicoGlobals::ordenarHidreletricasPorTamanhoReservatorio(vector<UsinaHidreletrica>* hidreletricas, bool comJusantes) {
 
 
-	for (int i = 1; i < hidreletricas.size(); i++) {
+	for (int i = 1; i < hidreletricas->size(); i++) {
 		int j = i;
-		while((hidreletricas.at(j).reservatorio.obterTamanho() > hidreletricas.at(j - 1).reservatorio.obterTamanho())) {
+		while((hidreletricas->at(j).reservatorio.obterTamanho() > hidreletricas->at(j - 1).reservatorio.obterTamanho())) {
 
-			UsinaHidreletrica* aux = &hidreletricas.at(j);
-			UsinaHidreletrica* usina_j = &hidreletricas.at(j);
-			UsinaHidreletrica* usina_j_1 = &hidreletricas.at(j-1);
+			UsinaHidreletrica* aux = &hidreletricas->at(j);
+			UsinaHidreletrica* usina_j = &hidreletricas->at(j);
+			UsinaHidreletrica* usina_j_1 = &hidreletricas->at(j-1);
 
 			*usina_j = *usina_j_1;
 			*usina_j_1 = *aux;
@@ -220,10 +220,10 @@ vector<UsinaHidreletrica> OtimizacaoDespachoHidrotermicoGlobals::ordenarHidrelet
 	else {
 		vector<UsinaHidreletrica> result;
 
-		for(int i = 0; i <= hidreletricas.size(); i++) {
-			UsinaHidreletrica hidreletrica = hidreletricas.at(i);
+		for(int i = 0; i <= hidreletricas->size(); i++) {
+			UsinaHidreletrica hidreletrica = hidreletricas->at(i);
 
-			if (!find(hidreletricas.begin(), hidreletricas.end(), hidreletrica) != hidreletricas.end()) {
+			if (!find(hidreletricas->begin(), hidreletricas->end(), hidreletrica) != hidreletricas->end()) {
 				result.push_back(hidreletrica);
 				this->obterUsinaJusante(hidreletrica, result);
 			}
@@ -249,15 +249,15 @@ void OtimizacaoDespachoHidrotermicoGlobals::obterUsinaJusante(UsinaHidreletrica 
 	obterUsinaJusante(jusante, result);
 }
 
-vector<UsinaTermica> OtimizacaoDespachoHidrotermicoGlobals::obterTermicasComPrioridadeDesativacao(vector<UsinaTermica> termicas, int periodo) {
+vector<UsinaTermica>* OtimizacaoDespachoHidrotermicoGlobals::obterTermicasComPrioridadeDesativacao(vector<UsinaTermica>* termicas, int periodo) {
 
 	vector<UsinaTermica> urgente;
 	vector<UsinaTermica> normal;
 
 	termicas = ordenarTermicasPorCusto(termicas, periodo);
 
-	for(int i = 0; i < termicas.size(); i++) {
-		UsinaTermica termica = termicas.at(i);
+	for(int i = 0; i < termicas->size(); i++) {
+		UsinaTermica termica = termicas->at(i);
 
 		if (find(termica.periodosDesativacaoObrigatorio.begin(), termica.periodosDesativacaoObrigatorio.end(), periodo) != termica.periodosDesativacaoObrigatorio.end()) {
 			urgente.push_back(termica);
@@ -269,20 +269,21 @@ vector<UsinaTermica> OtimizacaoDespachoHidrotermicoGlobals::obterTermicasComPrio
 	}
 
 	urgente.insert(urgente.end(), normal.begin(), normal.end());
+	termicas->swap(urgente);
 
-	return urgente;
+	return termicas;
 }
 
-vector<UsinaTermica> OtimizacaoDespachoHidrotermicoGlobals::ordenarTermicasPorCusto(vector<UsinaTermica> termicas, int periodo) {
+vector<UsinaTermica>* OtimizacaoDespachoHidrotermicoGlobals::ordenarTermicasPorCusto(vector<UsinaTermica>* termicas, int periodo) {
 
-	int totalTermicas = termicas.size();
+	int totalTermicas = termicas->size();
 
 	for (int i = 1; i < totalTermicas; i++) {
 		int j = i;
-		while(termicas.at(j).custoTermicaMegaWattMedio(periodo) < termicas.at(j - 1).custoTermicaMegaWattMedio(periodo)) {
-			UsinaTermica* aux = &termicas.at(j);
-			UsinaTermica* usina_j = &termicas.at(j);
-			UsinaTermica* usina_j_1 = &termicas.at(j-1);
+		while(termicas->at(j).custoTermicaMegaWattMedio(periodo) < termicas->at(j - 1).custoTermicaMegaWattMedio(periodo)) {
+			UsinaTermica* aux = &termicas->at(j);
+			UsinaTermica* usina_j = &termicas->at(j);
+			UsinaTermica* usina_j_1 = &termicas->at(j-1);
 			*usina_j = *usina_j_1;
 			*usina_j_1 = *aux;
 			j--;

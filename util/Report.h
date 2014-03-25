@@ -15,7 +15,7 @@ using namespace std;
 class Report {
 public:
 	Report();
-	static void imprimir_resultados(PlanoProducao plano_producao);
+	static void imprimirResultados(PlanoProducao plano_producao);
 };
 
 #endif /* REPORT_H_ */

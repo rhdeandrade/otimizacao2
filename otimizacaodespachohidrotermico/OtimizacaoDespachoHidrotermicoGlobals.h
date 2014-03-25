@@ -34,10 +34,10 @@ public:
 	static long double quantidadeDiasMes(int periodo);
 	static int mesCorrente(int periodo);
 	static UsinaHidreletrica obterUsina(int id_usina);
-	static vector<UsinaHidreletrica> ordenarHidreletricasPorTamanhoReservatorio(vector<UsinaHidreletrica> hidreletricas, bool comJusantes);
+	static vector<UsinaHidreletrica>* ordenarHidreletricasPorTamanhoReservatorio(vector<UsinaHidreletrica>* hidreletricas, bool comJusantes);
 	static void obterUsinaJusante(UsinaHidreletrica h, vector<UsinaHidreletrica> result);
-	static vector<UsinaTermica> obterTermicasComPrioridadeDesativacao(vector<UsinaTermica> termicas, int periodo);
-	static vector<UsinaTermica> ordenarTermicasPorCusto(vector<UsinaTermica> termicas, int periodo);
+	static vector<UsinaTermica>* obterTermicasComPrioridadeDesativacao(vector<UsinaTermica>* termicas, int periodo);
+	static vector<UsinaTermica>* ordenarTermicasPorCusto(vector<UsinaTermica>* termicas, int periodo);
 
 
 

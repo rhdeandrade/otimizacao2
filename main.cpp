@@ -13,8 +13,9 @@
 #include <ctime>
 using namespace std;
 
-
 int main() {
+
+
 	time_t     now = time(0);
 	struct tm  tstruct;
 	char       buf[80];
@@ -33,9 +34,9 @@ int main() {
 
 	cout << "Start: " << buf << "\n";
 
-	Report::imprimir_resultados(odh.planoProducao);
+	Report::imprimirResultados(odh.planoProducao);
 	OtimizacaoDespachoHidrotermicoGlobals::atualizarPlanoProducao(&odh.planoProducao);
-	Report::imprimir_resultados(odh.planoProducao);
+	Report::imprimirResultados(odh.planoProducao);
 	odh.validarPlanoProducao();
 
 	int operacaoAtomica = 4;
@@ -45,9 +46,11 @@ int main() {
 	odh.executarOtimizacaoHillClimbing(operacaoAtomica, 60, 3);
 	odh.validarPlanoProducao();
 
+	now = time(0);
+	tstruct = *localtime(&now);
 	strftime(buf, sizeof(buf), "%Y-%m-%d.%X", &tstruct);
 
-	Report::imprimir_resultados(odh.planoProducao);
+	Report::imprimirResultados(odh.planoProducao);
 	cout << "End: " << buf << "\n";
 
 }
